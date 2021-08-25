@@ -3,10 +3,38 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --ext js",
+    "test": "ava",
+    "coverage": "c8 -r lcov -x vendor ava"
+  },
+  "bin": {
+    "peggy-tracks": "bin/peggy-tracks.js"
   },
   "keywords": [],
   "author": "Joe Hildebrand <joe-github@cursive.net>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^8.1.0",
+    "peggy": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "devDependencies": {
+    "@peggyjs/eslint-config": "^0.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
+    "ava": "^4.0.0-alpha.2",
+    "c8": "^7.8.0",
+    "eslint": "^7.32.0",
+    "nyc": "^15.1.0",
+    "typescript": "^4.3.5"
+  },
+  "ava": {
+    "files": [
+      "test/*.test.js"
+    ]
+  }
 }
