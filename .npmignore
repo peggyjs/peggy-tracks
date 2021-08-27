@@ -4,3 +4,5 @@ node_modules/
 test/
 coverage/
 jest.config.js
+vendor/*/rationale.md
+*.svg
