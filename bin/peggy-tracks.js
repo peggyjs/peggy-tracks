@@ -2,6 +2,7 @@
 
 import { Command } from "commander/esm.mjs";
 import fs from "fs";
+import path from "path";
 import { tracks } from "../index.js";
 
 const program = new Command();
@@ -10,6 +11,7 @@ const opts = program
   .argument("[input_file]")
   .option("-s,--start <rule name>", "Rule to start with")
   .option("-e,--expand", "Expand rule references")
+  .option("-o,--output <file name>", "File in which to save ouptut")
   .parse()
   .opts();
 
@@ -27,6 +29,13 @@ function readFile(name) {
   });
 }
 
+function switchExt(initial, newExt) {
+  const parsed = path.parse(initial);
+  parsed.ext = newExt;
+  delete parsed.base;
+  return path.format(parsed);
+}
+
 async function main() {
   for (const grammarSource of files) {
     const text = await readFile(grammarSource);
@@ -38,8 +47,9 @@ async function main() {
           grammarSource,
         },
       });
-
-      console.log(diag.toStandalone());
+      const output = opts.output || (grammarSource === "-" ? "-" : switchExt(grammarSource, ".svg"));
+      const os = output === "-" ? process.stdout : fs.createWriteStream(output);
+      os.write(diag.toStandalone());
     } catch (er) {
       if (typeof er.format === "function") {
         console.error(er.format([{
