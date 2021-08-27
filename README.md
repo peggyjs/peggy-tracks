@@ -25,3 +25,6 @@ Options:
   -o,--output <file name>  File in which to save ouptut
   -h, --help               display help for command
 ```
+
+[![Tests](https://github.com/peggyjs/peggy-tracks/actions/workflows/node.js.yml/badge.svg)](https://github.com/peggyjs/peggy-tracks/actions/workflows/node.js.yml)
+[![codecov](https://codecov.io/gh/peggyjs/peggy-tracks/branch/main/graph/badge.svg?token=KX7ED6FH85)](https://codecov.io/gh/peggyjs/peggy-tracks)
