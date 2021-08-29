@@ -6,7 +6,11 @@
 
 A quick example, generated with `peggy-tracks -s comment`:
 
-![test](./test/output/comment.svg)
+![comments](./test/output/comment.svg)
+
+Alternately, you can have rule references expanded using `-e`:
+
+![comments-expanded](./test/output/test.svg)
 
 ## Installation
 

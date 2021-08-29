@@ -2,12 +2,12 @@
   "name": "peggy-tracks",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "type": "module",
   "scripts": {
     "lint": "eslint . --ext js",
     "test": "ava",
-    "coverage": "c8 -r lcov -x vendor ava"
+    "coverage": "c8 -r lcov -x vendor -x test ava"
   },
   "bin": {
     "peggy-tracks": "bin/peggy-tracks.js"
