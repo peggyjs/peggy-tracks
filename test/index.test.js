@@ -24,3 +24,12 @@ test("produces one of each", async t => {
   });
   t.truthy(diag);
 });
+
+test("actions", t => {
+  const diag = tracks({
+    action: true,
+    text: "bar = '1' { return 1 }",
+  });
+  t.truthy(diag);
+  t.regex(diag.toStandalone(), /<title>return 1<\/title>/);
+});

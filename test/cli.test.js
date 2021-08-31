@@ -54,9 +54,10 @@ test("cli help", async t => {
 Usage: peggy-tracks [options] [input_file]
 
 Options:
+  -a,--action              Wrap actions in a box
   -s,--start <rule name>   Rule to start with
   -e,--expand              Expand rule references
-  -o,--output <file name>  File in which to save ouptut
+  -o,--output <file name>  File in which to save output
   -h, --help               display help for command
 `);
 
