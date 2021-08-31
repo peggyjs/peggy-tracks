@@ -1,6 +1,6 @@
 import fs from "fs";
 import test from "ava";
-import { tracks } from "../index.js";
+import { tracks } from "../lib/index.js";
 
 test("it tracks", t => {
   const diag = tracks({
