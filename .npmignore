@@ -1,8 +1,10 @@
-node_modules/
 .editorconfig
 .eslintrc.cjs
-test/
+.github/
+.vscode/
+*.svg
 coverage/
 jest.config.js
+node_modules/
+test/
 vendor/*/rationale.md
-*.svg
