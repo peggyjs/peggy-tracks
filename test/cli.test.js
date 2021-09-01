@@ -1,5 +1,5 @@
-import { Readable, Transform } from "stream";
 import CLI from "../lib/cli.js";
+import { Transform } from "stream";
 import { rm } from "fs/promises";
 import test from "ava";
 import url from "url";
@@ -23,6 +23,10 @@ class Buf extends Transform {
       this.push(chunk);
       cb();
     }
+  }
+
+  static from(str) {
+    return new Buf().end(str);
   }
 }
 
@@ -54,9 +58,12 @@ test("cli help", async t => {
 Usage: peggy-tracks [options] [input_file]
 
 Options:
-  -s,--start <rule name>   Rule to start with
+  -a,--action              Wrap actions in a box
+  -c,--css [file name]     With no file name, outputs the default CSS.  With a
+                           filename, substitutes the CSS in that file.
   -e,--expand              Expand rule references
-  -o,--output <file name>  File in which to save ouptut
+  -o,--output <file name>  File in which to save output
+  -s,--start <rule name>   Rule to start with
   -h, --help               display help for command
 `);
 
@@ -67,7 +74,7 @@ Options:
 test("default output", async t => {
   const defaultOutputStream = new Buf();
   const res = await exec(t, [], null, {
-    defaultInputStream: Readable.from("foo = '1'", { objectMode: false }),
+    defaultInputStream: Buf.from("foo = '1'"),
     defaultOutputStream,
   });
   t.deepEqual(res, { err: "", out: "" });
@@ -92,7 +99,7 @@ test("file output", async t => {
 test("grammar error", async t => {
   const errorStream = new Buf();
   const res = await exec(t, [], null, {
-    defaultInputStream: Readable.from("foo ==", { objectMode: false }),
+    defaultInputStream: Buf.from("foo =="),
     errorStream,
   });
   t.deepEqual(res, { err: "", out: "" });
@@ -108,14 +115,32 @@ Error: Expected "!", "$", "&", "(", ".", "@", character class, comment, end of l
 test("non-grammar error", async t => {
   await exec(t, ["FILE_DOES_NOT_EXIST"], "ENOENT");
   await exec(t, ["-o", "DIRECTORY_DOES_NOT_EXIST/foo.svg"], "ENOENT", {
-    defaultInputStream: Readable.from("foo = '1'", { objectMode: false }),
+    defaultInputStream: Buf.from("foo = '1'"),
   });
 
   const errorToThrow = new Error("Forced write error");
   errorToThrow.code = "FORCED";
   const defaultOutputStream = new Buf({ errorToThrow });
   await exec(t, [], "FORCED", {
-    defaultInputStream: Readable.from("foo = '1'", { objectMode: false }),
+    defaultInputStream: Buf.from("foo = '1'"),
     defaultOutputStream,
   });
+});
+
+test("output css", async t => {
+  const defaultOutputStream = new Buf();
+  await exec(t, ["-c"], "peggy-tracks.css", { defaultOutputStream });
+  const css = defaultOutputStream.read();
+  t.regex(css, /text\.diagram-arrow/);
+});
+
+test("input css", async t => {
+  const defaultOutputStream = new Buf();
+  const css = url.fileURLToPath(new URL("pretty.css", import.meta.url));
+  await exec(t, ["-c", css], null, {
+    defaultInputStream: Buf.from("foo = '1'"),
+    defaultOutputStream,
+  });
+  const out = defaultOutputStream.read();
+  t.regex(out, /hotpink/);
 });
