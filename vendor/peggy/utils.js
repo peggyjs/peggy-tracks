@@ -1,5 +1,12 @@
 export function hex(ch) { return ch.charCodeAt(0).toString(16).toUpperCase(); }
 
+/**
+ * Escape strings that will be included in JS.
+ *
+ * @param {string} s
+ * @return {string}
+ * @ignore
+ */
 export function stringEscape(s) {
   // ECMA-262, 5th ed., 7.8.4: All characters may appear literally in a string
   // literal except for the closing quote character, backslash, carriage
@@ -23,6 +30,13 @@ export function stringEscape(s) {
     .replace(/[\u1000-\uFFFF]/g,      ch => "\\u"  + hex(ch));
 }
 
+/**
+ * Escape strings that go into regexp's.
+ *
+ * @param {string} s
+ * @return {string}
+ * @ignore
+ */
 export function regexpClassEscape(s) {
   // Based on ECMA-262, 5th ed., 7.8.5 & 15.10.1.
   //

@@ -7,13 +7,21 @@
   "scripts": {
     "lint": "eslint . --ext js",
     "test": "ava",
-    "coverage": "c8 -r lcov -x vendor -x test ava",
-    "dev:watch": "chokidar --initial --ignore 'coverage/**' --ignore 'node_modules/**' -c 'npm run coverage' '**/*.js' '**/*.json' '**/*.css'"
+    "coverage": "c8 ava",
+    "dev:watch": "chokidar --initial --ignore \"coverage/**\" --ignore \"node_modules/**\" -c \"npm run coverage\" \"**/*.js\" \"**/*.json\" \"**/*.css\"",
+    "types": "tsc"
   },
   "bin": {
     "peggy-tracks": "bin/peggy-tracks.js"
   },
-  "keywords": [],
+  "types": "types/lib/index.d.ts",
+  "keywords": [
+    "railroad",
+    "diagram",
+    "grammar",
+    "peggy",
+    "peg.js"
+  ],
   "author": "Joe Hildebrand <joe-github@cursive.net>",
   "license": "MIT",
   "dependencies": {
@@ -25,17 +33,13 @@
   },
   "devDependencies": {
     "@peggyjs/eslint-config": "^0.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.29.3",
-    "@typescript-eslint/parser": "^4.29.3",
+    "@types/node": "^16.7.10",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
     "ava": "^4.0.0-alpha.2",
     "c8": "^7.8.0",
     "chokidar-cli": "^3.0.0",
     "eslint": "^7.32.0",
-    "typescript": "^4.3.5"
-  },
-  "ava": {
-    "files": [
-      "test/*.test.js"
-    ]
+    "typescript": "^4.4.2"
   }
 }

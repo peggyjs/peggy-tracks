@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use strict";
 /*
 Railroad Diagrams
@@ -1239,7 +1240,7 @@ funcs.Terminal = (...args)=>new Terminal(...args);
 
 
 export class NonTerminal extends FakeSVG {
-	constructor(text, {href, title, cls=""}={}) {
+	constructor(text, {href=null, title=null, cls=""}={}) {
 		super('g', {'class': ['non-terminal', cls].join(" ")});
 		this.text = ""+text;
 		this.href = href;
@@ -1277,7 +1278,7 @@ funcs.NonTerminal = (...args)=>new NonTerminal(...args);
 
 
 export class Comment extends FakeSVG {
-	constructor(text, {href, title, cls=""}={}) {
+	constructor(text, {href=null, title=null, cls=""}={}) {
 		super('g', {'class': ['comment', cls].join(" ")});
 		this.text = ""+text;
 		this.href = href;

@@ -1,10 +1,13 @@
+.c8rc.json
 .editorconfig
 .eslintrc.cjs
 .github/
 .vscode/
 *.svg
+ava.config.js
 coverage/
 jest.config.js
 node_modules/
 test/
+tsconfig.json
 vendor/*/rationale.md
