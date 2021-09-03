@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use strict";
 /*
 Railroad Diagrams
@@ -357,13 +358,17 @@ export class Sequence extends DiagramMultiContainer {
 				new Path(x,y).h(10).addTo(this);
 				x += 10;
 			}
-			item.format(x, y, item.width).addTo(this);
+
+      // quick hack to draw child item after lines
+      const x0 = x;
+      const y0 = y;
 			x += item.width;
 			y += item.height;
 			if(item.needsSpace && i < this.items.length-1) {
 				new Path(x,y).h(10).addTo(this);
 				x += 10;
 			}
+			item.format(x0, y0, item.width).addTo(this);
 		}
 		return this;
 	}
@@ -1042,16 +1047,16 @@ export class OneOrMore extends FakeSVG {
 		new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
 		x += gaps[0];
 
-		// Draw item
-		new Path(x,y).right(Options.AR).addTo(this);
-		this.item.format(x+Options.AR,y,this.width-Options.AR*2).addTo(this);
-		new Path(x+this.width-Options.AR,y+this.height).right(Options.AR).addTo(this);
-
 		// Draw repeat arc
 		var distanceFromY = Math.max(Options.AR*2, this.item.height+this.item.down+Options.VS+this.rep.up);
 		new Path(x+Options.AR,y).arc('nw').down(distanceFromY-Options.AR*2).arc('ws').addTo(this);
 		this.rep.format(x+Options.AR, y+distanceFromY, this.width - Options.AR*2).addTo(this);
 		new Path(x+this.width-Options.AR, y+distanceFromY+this.rep.height).arc('se').up(distanceFromY-Options.AR*2+this.rep.height-this.item.height).arc('en').addTo(this);
+
+		// Draw item
+		new Path(x,y).right(Options.AR).addTo(this);
+		new Path(x+this.width-Options.AR,y+this.height).right(Options.AR).addTo(this);
+		this.item.format(x+Options.AR,y,this.width-Options.AR*2).addTo(this);
 
 		return this;
 	}
@@ -1239,7 +1244,7 @@ funcs.Terminal = (...args)=>new Terminal(...args);
 
 
 export class NonTerminal extends FakeSVG {
-	constructor(text, {href, title, cls=""}={}) {
+	constructor(text, {href=null, title=null, cls=""}={}) {
 		super('g', {'class': ['non-terminal', cls].join(" ")});
 		this.text = ""+text;
 		this.href = href;
@@ -1277,7 +1282,7 @@ funcs.NonTerminal = (...args)=>new NonTerminal(...args);
 
 
 export class Comment extends FakeSVG {
-	constructor(text, {href, title, cls=""}={}) {
+	constructor(text, {href=null, title=null, cls=""}={}) {
 		super('g', {'class': ['comment', cls].join(" ")});
 		this.text = ""+text;
 		this.href = href;
@@ -1406,7 +1411,7 @@ function SVG(name, attrs, text) {
 
 function escapeString(string) {
 	// Escape markdown and HTML special characters
-	return string.replace(/[*_\`\[\]<&]/g, function(charString) {
+	return string.replace(/[\`\[\]<&]/g, function(charString) {
 		return '&#' + charString.charCodeAt(0) + ';';
 	});
 }

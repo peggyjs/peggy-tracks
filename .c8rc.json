@@ -1,0 +1,6 @@
+{
+  "reporter": ["lcov"],
+  "include": ["lib"],
+  "exclude": ["test", "vendor"],
+  "all": true
+}
