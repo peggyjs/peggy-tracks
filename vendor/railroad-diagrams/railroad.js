@@ -75,6 +75,9 @@ export const defaultCSS = `
 		fill: white;
 		cursor: help;
 	}
+	.decision path {
+    fill: #ccc;
+  }
 	g.diagram-text:hover path.diagram-text {
 		fill: #eee;
 	}`;
@@ -1280,6 +1283,51 @@ export class NonTerminal extends FakeSVG {
 }
 funcs.NonTerminal = (...args)=>new NonTerminal(...args);
 
+// hildjj: added diamonds for & and !
+export class Decision extends FakeSVG {
+	constructor(text, {href=null, title=null, cls=""}={}) {
+		super('g', {'class': ['decision', cls].join(" ")});
+		this.text = ""+text;
+		this.href = href;
+		this.title = title;
+		this.cls = cls;
+		this.width = this.text.length * Options.CHAR_WIDTH + 20;
+		this.height = 0;
+		this.up = 11;
+		this.down = 11;
+		this.needsSpace = true;
+		if(Options.DEBUG) {
+			this.attrs['data-updown'] = this.up + " " + this.height + " " + this.down;
+			this.attrs['data-type'] = "decision";
+		}
+	}
+	format(x, y, width) {
+		// Hook up the two sides if this is narrower than its stated width.
+		var gaps = determineGaps(width, this.width);
+		new Path(x,y).h(gaps[0]).addTo(this);
+		new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
+		x += gaps[0];
+
+    new Path(x, y)
+      .l(this.up,-this.up)
+      .h(width - this.up - this.down)
+      .l(this.up, this.up)
+      .l(-this.down, this.down)
+      .h(-width + this.up + this.down)
+      .l(-this.down, -this.down)
+      .addTo(this);
+		//new FakeSVG('rect', {x:x, y:y-11, width:this.width, height:this.up+this.down}).addTo(this);
+		var text = new FakeSVG('text', {x:x+this.width/2, y:y+4}, this.text);
+		if(this.href)
+			new FakeSVG('a', {'xlink:href': this.href}, [text]).addTo(this);
+		else
+			text.addTo(this);
+		if(this.title)
+			new FakeSVG('title', {}, [this.title]).addTo(this);
+		return this;
+	}
+}
+funcs.Decision = (...args)=>new Decision(...args);
 
 export class Comment extends FakeSVG {
 	constructor(text, {href=null, title=null, cls=""}={}) {

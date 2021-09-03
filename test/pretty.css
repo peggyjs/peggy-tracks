@@ -42,6 +42,9 @@ path.diagram-text {
   fill: white;
   cursor: help;
 }
+.decision path {
+  fill: #ccc;
+}
 g.diagram-text:hover path.diagram-text {
   fill: #eee;
 }
