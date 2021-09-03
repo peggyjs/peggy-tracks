@@ -24,6 +24,8 @@
   ],
   "author": "Joe Hildebrand <joe-github@cursive.net>",
   "license": "MIT",
+  "repository": "peggyjs/peggy-tracks",
+  "bugs": "https://github.com/peggyjs/peggy-tracks/issues",
   "dependencies": {
     "commander": "^8.1.0",
     "peggy": "^1.2.0"
