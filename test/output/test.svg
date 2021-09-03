@@ -85,7 +85,7 @@
 <path d="M296.5 88h0"></path>
 <path d="M399 88h0"></path>
 <path d="M325 88h10"></path>
-<g class="non-terminal ">
+<g class="decision ">
 <path d="M296.5 88h0"></path>
 <path d="M325 88h0"></path>
 <rect x="296.5" y="77" width="28.5" height="22"></rect>

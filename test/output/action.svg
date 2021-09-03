@@ -50,10 +50,10 @@
 <path d="M282 79h0"></path>
 <path d="M384.5 79h0"></path>
 <path d="M310.5 79h10"></path>
-<g class="non-terminal ">
+<g class="decision ">
 <path d="M282 79h0"></path>
 <path d="M310.5 79h0"></path>
-<rect x="282" y="68" width="28.5" height="22"></rect>
+<path d="M282 79l11 -11h6.5l11 11l-11 11h-6.5l-11 -11"></path>
 <text x="296.25" y="83">&#38;</text>
 </g>
 <path d="M320.5 79h10"></path>
@@ -104,10 +104,10 @@
 <path d="M232.25 150h0"></path>
 <path d="M334.75 150h0"></path>
 <path d="M260.75 150h10"></path>
-<g class="non-terminal ">
+<g class="decision ">
 <path d="M232.25 150h0"></path>
 <path d="M260.75 150h0"></path>
-<rect x="232.25" y="139" width="28.5" height="22"></rect>
+<path d="M232.25 150l11 -11h6.5l11 11l-11 11h-6.5l-11 -11"></path>
 <text x="246.5" y="154">&#38;</text>
 </g>
 <path d="M270.75 150h10"></path>
@@ -180,6 +180,9 @@ path.diagram-text {
   stroke: black;
   fill: white;
   cursor: help;
+}
+.decision path {
+  fill: #ccc;
 }
 g.diagram-text:hover path.diagram-text {
   fill: #eee;
