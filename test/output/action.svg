@@ -53,7 +53,7 @@
 <g class="decision ">
 <path d="M282 79h0"></path>
 <path d="M310.5 79h0"></path>
-<path d="M282 79l11 -11h6.5l11 11l-11 11h-6.5l-11 -11"></path>
+<path d="M282 79v5.5l5.5 5.5h17.5l5.5 -5.5v-11l-5.5 -5.5h-17.5l-5.5 5.5v5.5"></path>
 <text x="296.25" y="83">&#38;</text>
 </g>
 <path d="M320.5 79h10"></path>
@@ -107,7 +107,7 @@
 <g class="decision ">
 <path d="M232.25 150h0"></path>
 <path d="M260.75 150h0"></path>
-<path d="M232.25 150l11 -11h6.5l11 11l-11 11h-6.5l-11 -11"></path>
+<path d="M232.25 150v5.5l5.5 5.5h17.5l5.5 -5.5v-11l-5.5 -5.5h-17.5l-5.5 5.5v5.5"></path>
 <text x="246.5" y="154">&#38;</text>
 </g>
 <path d="M270.75 150h10"></path>

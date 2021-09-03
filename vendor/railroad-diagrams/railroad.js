@@ -1309,12 +1309,15 @@ export class Decision extends FakeSVG {
 		x += gaps[0];
 
     new Path(x, y)
-      .l(this.up,-this.up)
-      .h(width - this.up - this.down)
-      .l(this.up, this.up)
-      .l(-this.down, this.down)
-      .h(-width + this.up + this.down)
-      .l(-this.down, -this.down)
+      .v(this.down/2)
+      .l(this.down/2, this.down/2)
+      .h(width - this.up/2 - this.down/2)
+      .l(this.down/2, -this.down/2)
+      .v(-this.down/2 - this.up/2)
+      .l(-this.up/2, -this.up/2)
+      .h(-width + this.up/2 + this.down/2)
+      .l(-this.up/2, this.up/2)
+      .v(this.up/2)
       .addTo(this);
 		//new FakeSVG('rect', {x:x, y:y-11, width:this.width, height:this.up+this.down}).addTo(this);
 		var text = new FakeSVG('text', {x:x+this.width/2, y:y+4}, this.text);

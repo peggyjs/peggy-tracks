@@ -56,7 +56,7 @@
 <g class="decision ">
 <path d="M202.5 64h0"></path>
 <path d="M231 64h0"></path>
-<path d="M202.5 64l11 -11h6.5l11 11l-11 11h-6.5l-11 -11"></path>
+<path d="M202.5 64v5.5l5.5 5.5h17.5l5.5 -5.5v-11l-5.5 -5.5h-17.5l-5.5 5.5v5.5"></path>
 <text x="216.75" y="68">!</text>
 </g>
 <path d="M241 64h10"></path>

@@ -88,7 +88,7 @@
 <g class="decision ">
 <path d="M296.5 88h0"></path>
 <path d="M325 88h0"></path>
-<path d="M296.5 88l11 -11h6.5l11 11l-11 11h-6.5l-11 -11"></path>
+<path d="M296.5 88v5.5l5.5 5.5h17.5l5.5 -5.5v-11l-5.5 -5.5h-17.5l-5.5 5.5v5.5"></path>
 <text x="310.75" y="92">!</text>
 </g>
 <path d="M335 88h10"></path>

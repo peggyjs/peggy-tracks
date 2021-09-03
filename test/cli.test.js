@@ -30,7 +30,7 @@ class Buf extends Transform {
   }
 }
 
-function exec(t, argv, code, opts) {
+async function exec(t, argv, code, opts) {
   const cli = new CLI();
   Object.assign(cli, opts);
   cli.exitOverride();
@@ -38,7 +38,9 @@ function exec(t, argv, code, opts) {
   if (code) {
     return t.throwsAsync(() => cli.main([...P, ...argv]), { code });
   }
-  return cli.main([...P, ...argv]);
+  const res = await cli.main([...P, ...argv]);
+  t.pass(`Executed "${argv.join(" ")}"`);
+  return res;
 }
 
 test("cli help", async t => {
@@ -138,4 +140,14 @@ test("input css", async t => {
   });
   const out = defaultOutputStream.read();
   t.regex(out, /hotpink/);
+});
+
+test("more examples", async t => {
+  const inp = url.fileURLToPath(new URL("test.peggy", import.meta.url));
+  const action = url.fileURLToPath(new URL("output/action.svg", import.meta.url));
+  const css = url.fileURLToPath(new URL("pretty.css", import.meta.url));
+  await exec(t, ["--action", "--output", action, "--css", css, "-s", "number", inp]);
+
+  const full = url.fileURLToPath(new URL("output/full.svg", import.meta.url));
+  await exec(t, ["-e", "-o", full, inp]);
 });
