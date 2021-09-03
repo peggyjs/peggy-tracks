@@ -88,7 +88,7 @@
 <g class="decision ">
 <path d="M296.5 88h0"></path>
 <path d="M325 88h0"></path>
-<rect x="296.5" y="77" width="28.5" height="22"></rect>
+<path d="M296.5 88l11 -11h6.5l11 11l-11 11h-6.5l-11 -11"></path>
 <text x="310.75" y="92">!</text>
 </g>
 <path d="M335 88h10"></path>
@@ -212,6 +212,9 @@
 		fill: white;
 		cursor: help;
 	}
+	.decision path {
+    fill: #ccc;
+  }
 	g.diagram-text:hover path.diagram-text {
 		fill: #eee;
 	}</style>
