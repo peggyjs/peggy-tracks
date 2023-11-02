@@ -34,4 +34,6 @@ export type TrackOptions = {
      */
     parserOptions: object;
 };
-import { ComplexDiagram, Diagram, defaultCSS } from "../vendor/railroad-diagrams/railroad.js";
+import { Diagram } from "../vendor/railroad-diagrams/railroad.js";
+import { ComplexDiagram } from "../vendor/railroad-diagrams/railroad.js";
+import { defaultCSS } from "../vendor/railroad-diagrams/railroad.js";
