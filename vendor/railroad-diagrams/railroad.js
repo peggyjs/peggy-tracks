@@ -1,5 +1,5 @@
 // @ts-nocheck
-"use strict";
+
 /*
 Railroad Diagrams
 by Tab Atkins Jr. (and others)
@@ -84,11 +84,10 @@ export const defaultCSS = `
 
 
 export class FakeSVG {
-  constructor(tagName, attrs, text) {
-    if(text) this.children = text;
-    else this.children = [];
+  constructor(tagName, attrs={}, text=[]) {
     this.tagName = tagName;
-    this.attrs = unnull(attrs, {});
+    this.attrs = attrs;
+    this.children = text;
   }
   format(x, y, width) {
     // Virtual
@@ -98,13 +97,13 @@ export class FakeSVG {
       parent.children.push(this);
       return this;
     } else {
-      var svg = this.toSVG();
+      const svg = this.toSVG();
       parent.appendChild(svg);
       return svg;
     }
   }
   toSVG() {
-    var el = SVG(this.tagName, this.attrs);
+    const el = SVG(this.tagName, this.attrs);
     if(typeof this.children == 'string') {
       el.textContent = this.children;
     } else {
@@ -115,9 +114,9 @@ export class FakeSVG {
     return el;
   }
   toString() {
-    var str = '<' + this.tagName;
-    var group = this.tagName == "g" || this.tagName == "svg";
-    for(var attr in this.attrs) {
+    let str = '<' + this.tagName;
+    const group = this.tagName == "g" || this.tagName == "svg";
+    for(const attr in this.attrs) {
       str += ' ' + attr + '="' + (this.attrs[attr]+'').replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '"';
     }
     str += '>';
@@ -161,15 +160,15 @@ export class Path extends FakeSVG {
   up(val) { return this.v(-Math.max(0, val)); }
   arc(sweep){
     // 1/4 of a circle
-    var x = Options.AR;
-    var y = Options.AR;
+    let x = Options.AR;
+    let y = Options.AR;
     if(sweep[0] == 'e' || sweep[1] == 'w') {
       x *= -1;
     }
     if(sweep[0] == 's' || sweep[1] == 'n') {
       y *= -1;
     }
-    var cw;
+    let cw;
     if(sweep == 'ne' || sweep == 'es' || sweep == 'sw' || sweep == 'wn') {
       cw = 1;
     } else {
@@ -219,7 +218,6 @@ export class Path extends FakeSVG {
   }
 }
 
-
 export class DiagramMultiContainer extends FakeSVG {
   constructor(tagName, items, attrs, text) {
     super(tagName, attrs, text);
@@ -251,16 +249,16 @@ export class Diagram extends DiagramMultiContainer {
     this.formatted = false;
   }
   format(paddingt, paddingr, paddingb, paddingl) {
-    paddingt = unnull(paddingt, 20);
-    paddingr = unnull(paddingr, paddingt, 20);
-    paddingb = unnull(paddingb, paddingt, 20);
-    paddingl = unnull(paddingl, paddingr, 20);
-    var x = paddingl;
-    var y = paddingt;
+    paddingt = paddingt ?? 20;
+    paddingr = paddingr ?? paddingt ?? 20;
+    paddingb = paddingb ?? paddingt ?? 20;
+    paddingl = paddingl ?? paddingr ?? 20;
+    let x = paddingl;
+    let y = paddingt;
     y += this.up;
-    var g = new FakeSVG('g', Options.STROKE_ODD_PIXEL_LENGTH ? {transform:'translate(.5 .5)'} : {});
-    for(var i = 0; i < this.items.length; i++) {
-      var item = this.items[i];
+    const g = new FakeSVG('g', Options.STROKE_ODD_PIXEL_LENGTH ? {transform:'translate(.5 .5)'} : {});
+    for(let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
       if(item.needsSpace) {
         new Path(x,y).h(10).addTo(g);
         x += 10;
@@ -282,9 +280,9 @@ export class Diagram extends DiagramMultiContainer {
   }
   addTo(parent) {
     if(!parent) {
-      var scriptTag = document.getElementsByTagName('script');
-      scriptTag = scriptTag[scriptTag.length - 1];
-      parent = scriptTag.parentNode;
+      const scriptTag = document.getElementsByTagName('script');
+      const child = scriptTag[scriptTag.length - 1];
+      parent = child.parentNode;
     }
     return super.addTo.call(this, parent);
   }
@@ -319,7 +317,8 @@ funcs.Diagram = (...args)=>new Diagram(...args);
 
 export class ComplexDiagram extends FakeSVG {
   constructor(...items) {
-    var diagram = new Diagram(...items);
+    super();
+    const diagram = new Diagram(...items);
     diagram.items[0] = new Start({type:"complex"});
     diagram.items[diagram.items.length-1] = new End({type:"complex"});
     return diagram;
@@ -331,11 +330,11 @@ funcs.ComplexDiagram = (...args)=>new ComplexDiagram(...args);
 export class Sequence extends DiagramMultiContainer {
   constructor(...items) {
     super('g', items);
-    var numberOfItems = this.items.length;
+    const numberOfItems = this.items.length;
     this.needsSpace = true;
     this.up = this.down = this.height = this.width = 0;
-    for(var i = 0; i < this.items.length; i++) {
-      var item = this.items[i];
+    for(let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
       this.width += item.width + (item.needsSpace?20:0);
       this.up = Math.max(this.up, item.up - this.height);
       this.height += item.height;
@@ -350,13 +349,13 @@ export class Sequence extends DiagramMultiContainer {
   }
   format(x,y,width) {
     // Hook up the two sides if this is narrower than its stated width.
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
     x += gaps[0];
 
-    for(var i = 0; i < this.items.length; i++) {
-      var item = this.items[i];
+    for(let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
       if(item.needsSpace && i > 0) {
         new Path(x,y).h(10).addTo(this);
         x += 10;
@@ -396,9 +395,9 @@ export class Stack extends DiagramMultiContainer {
     this.down = this.items[this.items.length-1].down;
 
     this.height = 0;
-    var last = this.items.length - 1;
-    for(var i = 0; i < this.items.length; i++) {
-      var item = this.items[i];
+    const last = this.items.length - 1;
+    for(let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
       this.height += item.height;
       if(i > 0) {
         this.height += Math.max(Options.AR*2, item.up + Options.VS);
@@ -413,18 +412,18 @@ export class Stack extends DiagramMultiContainer {
     }
   }
   format(x,y,width) {
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     x += gaps[0];
-    var xInitial = x;
+    const xInitial = x;
     if(this.items.length > 1) {
       new Path(x, y).h(Options.AR).addTo(this);
       x += Options.AR;
     }
 
-    for(var i = 0; i < this.items.length; i++) {
-      var item = this.items[i];
-      var innerWidth = this.width - (this.items.length>1 ? Options.AR*2 : 0);
+    for(let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
+      const innerWidth = this.width - (this.items.length>1 ? Options.AR*2 : 0);
       item.format(x, y, innerWidth).addTo(this);
       x += innerWidth;
       y += item.height;
@@ -463,21 +462,21 @@ export class OptionalSequence extends DiagramMultiContainer {
     if( items.length === 1 ) {
       return new Sequence(items);
     }
-    var arc = Options.AR;
+    const arc = Options.AR;
     this.needsSpace = false;
     this.width = 0;
     this.up = 0;
     this.height = sum(this.items, function(x){return x.height});
     this.down = this.items[0].down;
-    var heightSoFar = 0;
-    for(var i = 0; i < this.items.length; i++) {
-      var item = this.items[i];
+    let heightSoFar = 0;
+    for(let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
       this.up = Math.max(this.up, Math.max(arc*2, item.up + Options.VS) - heightSoFar);
       heightSoFar += item.height;
       if(i > 0) {
         this.down = Math.max(this.height + this.down, heightSoFar + Math.max(arc*2, item.down + Options.VS)) - this.height;
       }
-      var itemWidth = (item.needsSpace?10:0) + item.width;
+      const itemWidth = (item.needsSpace?10:0) + item.width;
       if(i === 0) {
         this.width += arc + Math.max(itemWidth, arc);
       } else {
@@ -490,17 +489,17 @@ export class OptionalSequence extends DiagramMultiContainer {
     }
   }
   format(x, y, width) {
-    var arc = Options.AR;
-    var gaps = determineGaps(width, this.width);
+    const arc = Options.AR;
+    const gaps = determineGaps(width, this.width);
     new Path(x, y).right(gaps[0]).addTo(this);
     new Path(x + gaps[0] + this.width, y + this.height).right(gaps[1]).addTo(this);
     x += gaps[0];
-    var upperLineY = y - this.up;
-    var last = this.items.length - 1;
-    for(var i = 0; i < this.items.length; i++) {
-      var item = this.items[i];
-      var itemSpace = (item.needsSpace?10:0);
-      var itemWidth = item.width + itemSpace;
+    const upperLineY = y - this.up;
+    const last = this.items.length - 1;
+    for(let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
+      const itemSpace = (item.needsSpace?10:0);
+      const itemWidth = item.width + itemSpace;
       if(i === 0) {
         // Upper skip
         new Path(x,y)
@@ -669,19 +668,19 @@ export class Choice extends DiagramMultiContainer {
     } else {
       this.normal = normal;
     }
-    var first = 0;
-    var last = items.length - 1;
+    const first = 0;
+    const last = items.length - 1;
     this.width = Math.max.apply(null, this.items.map(function(el){return el.width})) + Options.AR*4;
     this.height = this.items[normal].height;
     this.up = this.items[first].up;
-    var arcs;
-    for(var i = first; i < normal; i++) {
+    let arcs;
+    for(let i = first; i < normal; i++) {
       if(i == normal-1) arcs = Options.AR*2;
       else arcs = Options.AR;
       this.up += Math.max(arcs, this.items[i].height + this.items[i].down + Options.VS + this.items[i+1].up);
     }
     this.down = this.items[last].down;
-    for(i = normal+1; i <= last; i++) {
+    for(let i = normal+1; i <= last; i++) {
       if(i == normal+1) arcs = Options.AR*2;
       else arcs = Options.AR;
       this.down += Math.max(arcs, this.items[i-1].height + this.items[i-1].down + Options.VS + this.items[i].up);
@@ -694,17 +693,17 @@ export class Choice extends DiagramMultiContainer {
   }
   format(x,y,width) {
     // Hook up the two sides if this is narrower than its stated width.
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
     x += gaps[0];
 
-    var last = this.items.length -1;
-    var innerWidth = this.width - Options.AR*4;
+    const last = this.items.length -1;
+    const innerWidth = this.width - Options.AR*4;
 
     // Do the elements that curve above
-    var distanceFromY;
-    for(var i = this.normal - 1; i >= 0; i--) {
+    let distanceFromY;
+    for(let i = this.normal - 1; i >= 0; i--) {
       let item = this.items[i];
       if( i == this.normal - 1 ) {
         distanceFromY = Math.max(Options.AR*2, this.items[this.normal].up + Options.VS + item.down + item.height);
@@ -727,7 +726,7 @@ export class Choice extends DiagramMultiContainer {
     new Path(x+Options.AR*2+innerWidth, y+this.height).right(Options.AR*2).addTo(this);
 
     // Do the elements that curve below
-    for(i = this.normal+1; i <= last; i++) {
+    for(let i = this.normal+1; i <= last; i++) {
       let item = this.items[i];
       if( i == this.normal + 1 ) {
         distanceFromY = Math.max(Options.AR*2, this.height + this.items[this.normal].down + Options.VS + item.up);
@@ -757,7 +756,7 @@ export class HorizontalChoice extends DiagramMultiContainer {
       throw new RangeError("HorizontalChoice() must have at least one child.");
     }
     if( items.length === 1) {
-      return new Sequence(items);
+      return new Sequence(...items);
     }
     const allButLast = this.items.slice(0, -1);
     const middles = this.items.slice(1, -1);
@@ -803,7 +802,7 @@ export class HorizontalChoice extends DiagramMultiContainer {
   }
   format(x,y,width) {
     // Hook up the two sides if this is narrower than its stated width.
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
     x += gaps[0];
@@ -814,7 +813,7 @@ export class HorizontalChoice extends DiagramMultiContainer {
     const allButLast = this.items.slice(0, -1);
 
     // upper track
-    var upperSpan = (sum(allButLast, x=>x.width+(x.needsSpace?20:0))
+    const upperSpan = (sum(allButLast, x=>x.width+(x.needsSpace?20:0))
       + (this.items.length - 2) * Options.AR*2
       - Options.AR
     );
@@ -826,12 +825,12 @@ export class HorizontalChoice extends DiagramMultiContainer {
       .addTo(this);
 
     // lower track
-    var lowerSpan = (sum(allButFirst, x=>x.width+(x.needsSpace?20:0))
+    const lowerSpan = (sum(allButFirst, x=>x.width+(x.needsSpace?20:0))
       + (this.items.length - 2) * Options.AR*2
       + (last.height > 0 ? Options.AR : 0)
       - Options.AR
     );
-    var lowerStart = x + Options.AR + first.width+(first.needsSpace?20:0) + Options.AR*2;
+    const lowerStart = x + Options.AR + first.width+(first.needsSpace?20:0) + Options.AR*2;
     new Path(lowerStart, y+this._lowerTrack)
       .h(lowerSpan)
       .arc('se')
@@ -857,7 +856,7 @@ export class HorizontalChoice extends DiagramMultiContainer {
       }
 
       // item
-      var itemWidth = item.width + (item.needsSpace?20:0);
+      const itemWidth = item.width + (item.needsSpace?20:0);
       item.format(x, y, itemWidth).addTo(this);
       x += itemWidth;
 
@@ -922,7 +921,7 @@ export class MultipleChoice extends DiagramMultiContainer {
     this.up = this.items[0].up;
     this.down = this.items[this.items.length-1].down;
     this.height = this.items[normal].height;
-    for(var i = 0; i < this.items.length; i++) {
+    for(let i = 0; i < this.items.length; i++) {
       let item = this.items[i];
       let minimum;
       if(i == normal - 1 || i == normal + 1) minimum = 10 + Options.AR;
@@ -940,17 +939,17 @@ export class MultipleChoice extends DiagramMultiContainer {
     }
   }
   format(x, y, width) {
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x, y).right(gaps[0]).addTo(this);
     new Path(x + gaps[0] + this.width, y + this.height).right(gaps[1]).addTo(this);
     x += gaps[0];
 
-    var normal = this.items[this.normal];
+    const normal = this.items[this.normal];
 
     // Do the elements that curve above
-    var distanceFromY;
-    for(var i = this.normal - 1; i >= 0; i--) {
-      var item = this.items[i];
+    let distanceFromY;
+    for(let i = this.normal - 1; i >= 0; i--) {
+      const item = this.items[i];
       if( i == this.normal - 1 ) {
         distanceFromY = Math.max(10 + Options.AR, normal.up + Options.VS + item.down + item.height);
       }
@@ -971,7 +970,7 @@ export class MultipleChoice extends DiagramMultiContainer {
     normal.format(x + 30 + Options.AR, y, this.innerWidth).addTo(this);
     new Path(x + 30 + Options.AR + this.innerWidth, y + this.height).right(Options.AR).addTo(this);
 
-    for(i = this.normal+1; i < this.items.length; i++) {
+    for(let i = this.normal+1; i < this.items.length; i++) {
       let item = this.items[i];
       if(i == this.normal + 1) {
         distanceFromY = Math.max(10+Options.AR, normal.height + normal.down + Options.VS + item.up);
@@ -989,7 +988,7 @@ export class MultipleChoice extends DiagramMultiContainer {
         distanceFromY += Math.max(Options.AR, item.height + item.down + Options.VS + this.items[i+1].up);
       }
     }
-    var text = new FakeSVG('g', {"class": "diagram-text"}).addTo(this);
+    const text = new FakeSVG('g', {"class": "diagram-text"}).addTo(this);
     new FakeSVG('title', {}, (this.type=="any"?"take one or more branches, once each, in any order":"take all branches, once each, in any order")).addTo(text);
     new FakeSVG('path', {
       "d": "M "+(x+30)+" "+(y-10)+" h -26 a 4 4 0 0 0 -4 4 v 12 a 4 4 0 0 0 4 4 h 26 z",
@@ -1016,6 +1015,7 @@ funcs.MultipleChoice = (...args)=>new MultipleChoice(...args);
 
 export class Optional extends FakeSVG {
   constructor(item, skip) {
+    super();
     if( skip === undefined )
       return new Choice(1, new Skip(), item);
     else if ( skip === "skip" )
@@ -1028,11 +1028,13 @@ funcs.Optional = (...args)=>new Optional(...args);
 
 
 export class OneOrMore extends FakeSVG {
-  constructor(item, rep) {
+  constructor(item, {rep=undefined, min=undefined, max=undefined} = {}) {
     super('g');
     rep = rep || (new Skip());
     this.item = wrapString(item);
     this.rep = wrapString(rep);
+    this.min = min;
+    this.max = max;
     this.width = Math.max(this.item.width, this.rep.width) + Options.AR*2;
     this.height = this.item.height;
     this.up = this.item.up;
@@ -1045,13 +1047,13 @@ export class OneOrMore extends FakeSVG {
   }
   format(x,y,width) {
     // Hook up the two sides if this is narrower than its stated width.
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
     x += gaps[0];
 
     // Draw repeat arc
-    var distanceFromY = Math.max(Options.AR*2, this.item.height+this.item.down+Options.VS+this.rep.up);
+    const distanceFromY = Math.max(Options.AR*2, this.item.height+this.item.down+Options.VS+this.rep.up);
     new Path(x+Options.AR,y).arc('nw').down(distanceFromY-Options.AR*2).arc('ws').addTo(this);
     this.rep.format(x+Options.AR, y+distanceFromY, this.width - Options.AR*2).addTo(this);
     new Path(x+this.width-Options.AR, y+distanceFromY+this.rep.height).arc('se').up(distanceFromY-Options.AR*2+this.rep.height-this.item.height).arc('en').addTo(this);
@@ -1061,6 +1063,10 @@ export class OneOrMore extends FakeSVG {
     new Path(x+this.width-Options.AR,y+this.height).right(Options.AR).addTo(this);
     this.item.format(x+Options.AR,y,this.width-Options.AR*2).addTo(this);
 
+    if (this.min != null) {
+      this.min.format(x+this.width, y+distanceFromY/2, this.width - Options.AR*2).addTo(this);
+    }
+    // console.log({min: this.min, max:this.max})
     return this;
   }
   walk(cb) {
@@ -1073,8 +1079,8 @@ funcs.OneOrMore = (...args)=>new OneOrMore(...args);
 
 
 export class ZeroOrMore extends FakeSVG {
-  constructor(item, rep, skip) {
-    return new Optional(new OneOrMore(item, rep), skip);
+  constructor(item, {rep=undefined, skip=undefined, min=undefined, max=undefined}={}) {
+    return new Optional(new OneOrMore(item, {rep, min, max}), skip);
   }
 }
 funcs.ZeroOrMore = (...args)=>new ZeroOrMore(...args);
@@ -1108,7 +1114,7 @@ export class Group extends FakeSVG {
     }
   }
   format(x, y, width) {
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
     x += gaps[0];
@@ -1143,7 +1149,7 @@ funcs.Group = (...args)=>new Group(...args);
 
 
 export class Start extends FakeSVG {
-  constructor({type="simple", label}={}) {
+  constructor({type="simple", label=undefined}={}) {
     super('g');
     this.width = 20;
     this.height = 0;
@@ -1209,12 +1215,11 @@ funcs.End = (...args)=>new End(...args);
 
 
 export class Terminal extends FakeSVG {
-  constructor(text, {href, title, cls}={}) {
-    super('g', {'class': ['terminal', cls].join(" ")});
+  constructor(text, {href=undefined, title=undefined, cls=undefined}={}) {
+    super('g', classes('terminal', cls));
     this.text = ""+text;
     this.href = href;
     this.title = title;
-    this.cls = cls;
     this.width = this.text.length * Options.CHAR_WIDTH + 20; /* Assume that each char is .5em, and that the em is 16px */
     this.height = 0;
     this.up = 11;
@@ -1227,13 +1232,13 @@ export class Terminal extends FakeSVG {
   }
   format(x, y, width) {
     // Hook up the two sides if this is narrower than its stated width.
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
     x += gaps[0];
 
     new FakeSVG('rect', {x:x, y:y-11, width:this.width, height:this.up+this.down, rx:10, ry:10}).addTo(this);
-    var text = new FakeSVG('text', {x:x+this.width/2, y:y+4}, this.text);
+    const text = new FakeSVG('text', {x:x+this.width/2, y:y+4}, this.text);
     if(this.href)
       new FakeSVG('a', {'xlink:href': this.href}, [text]).addTo(this);
     else
@@ -1247,12 +1252,11 @@ funcs.Terminal = (...args)=>new Terminal(...args);
 
 
 export class NonTerminal extends FakeSVG {
-  constructor(text, {href=null, title=null, cls=""}={}) {
-    super('g', {'class': ['non-terminal', cls].join(" ")});
+  constructor(text, {href=undefined, title=undefined, cls=undefined}={}) {
+    super('g', classes('non-terminal', cls));
     this.text = ""+text;
     this.href = href;
     this.title = title;
-    this.cls = cls;
     this.width = this.text.length * Options.CHAR_WIDTH + 20;
     this.height = 0;
     this.up = 11;
@@ -1265,13 +1269,13 @@ export class NonTerminal extends FakeSVG {
   }
   format(x, y, width) {
     // Hook up the two sides if this is narrower than its stated width.
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
     x += gaps[0];
 
     new FakeSVG('rect', {x:x, y:y-11, width:this.width, height:this.up+this.down}).addTo(this);
-    var text = new FakeSVG('text', {x:x+this.width/2, y:y+4}, this.text);
+    const text = new FakeSVG('text', {x:x+this.width/2, y:y+4}, this.text);
     if(this.href)
       new FakeSVG('a', {'xlink:href': this.href}, [text]).addTo(this);
     else
@@ -1285,12 +1289,11 @@ funcs.NonTerminal = (...args)=>new NonTerminal(...args);
 
 // hildjj: added diamonds for & and !
 export class Decision extends FakeSVG {
-  constructor(text, {href=null, title=null, cls=""}={}) {
-    super('g', {'class': ['decision', cls].join(" ")});
+  constructor(text, {href=undefined, title=undefined, cls=undefined}={}) {
+    super('g', classes("decision", cls));
     this.text = ""+text;
     this.href = href;
     this.title = title;
-    this.cls = cls;
     this.width = this.text.length * Options.CHAR_WIDTH + 20;
     this.height = 0;
     this.up = 11;
@@ -1303,7 +1306,7 @@ export class Decision extends FakeSVG {
   }
   format(x, y, width) {
     // Hook up the two sides if this is narrower than its stated width.
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
     x += gaps[0];
@@ -1320,7 +1323,7 @@ export class Decision extends FakeSVG {
       .v(this.up/2)
       .addTo(this);
     //new FakeSVG('rect', {x:x, y:y-11, width:this.width, height:this.up+this.down}).addTo(this);
-    var text = new FakeSVG('text', {x:x+this.width/2, y:y+4}, this.text);
+    const text = new FakeSVG('text', {x:x+this.width/2, y:y+4}, this.text);
     if(this.href)
       new FakeSVG('a', {'xlink:href': this.href}, [text]).addTo(this);
     else
@@ -1333,12 +1336,11 @@ export class Decision extends FakeSVG {
 funcs.Decision = (...args)=>new Decision(...args);
 
 export class Comment extends FakeSVG {
-  constructor(text, {href=null, title=null, cls=""}={}) {
-    super('g', {'class': ['comment', cls].join(" ")});
+  constructor(text, {href=undefined, title=undefined, cls=undefined}={}) {
+    super('g', classes("comment", cls));
     this.text = ""+text;
     this.href = href;
     this.title = title;
-    this.cls = cls;
     this.width = this.text.length * Options.COMMENT_CHAR_WIDTH + 10;
     this.height = 0;
     this.up = 8;
@@ -1351,12 +1353,12 @@ export class Comment extends FakeSVG {
   }
   format(x, y, width) {
     // Hook up the two sides if this is narrower than its stated width.
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
     x += gaps[0];
 
-    var text = new FakeSVG('text', {x:x+this.width/2, y:y+5, class:'comment'}, this.text);
+    const text = new FakeSVG('text', {x:x+this.width/2, y:y+5, class:'comment'}, this.text);
     if(this.href)
       new FakeSVG('a', {'xlink:href': this.href}, [text]).addTo(this);
     else
@@ -1387,7 +1389,7 @@ export class Skip extends FakeSVG {
     return this;
   }
 }
-funcs.Skip = (...args)=>new Skip(...args);
+funcs.Skip = (...args)=>new Skip();
 
 
 export class Block extends FakeSVG {
@@ -1405,7 +1407,7 @@ export class Block extends FakeSVG {
   }
   format(x, y, width) {
     // Hook up the two sides if this is narrower than its stated width.
-    var gaps = determineGaps(width, this.width);
+    const gaps = determineGaps(width, this.width);
     new Path(x,y).h(gaps[0]).addTo(this);
     new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
     x += gaps[0];
@@ -1416,15 +1418,8 @@ export class Block extends FakeSVG {
 }
 funcs.Block = (...args)=>new Block(...args);
 
-
-function unnull(...args) {
-  // Return the first value that isn't undefined.
-  // More correct than `v1 || v2 || v3` because falsey values will be returned.
-  return args.reduce(function(sofar, x) { return sofar !== undefined ? sofar : x; });
-}
-
 function determineGaps(outer, inner) {
-  var diff = outer - inner;
+  const diff = outer - inner;
   switch(Options.INTERNAL_ALIGNMENT) {
     case 'left': return [0, diff];
     case 'right': return [diff, 0];
@@ -1446,15 +1441,13 @@ function max(iter, func) {
   return Math.max.apply(null, iter.map(func));
 }
 
-function SVG(name, attrs, text) {
-  attrs = attrs || {};
-  text = text || '';
-  var el = document.createElementNS("http://www.w3.org/2000/svg",name);
-  for(var attr in attrs) {
+function SVG(name, attrs={}, text='') {
+  const el = document.createElementNS("http://www.w3.org/2000/svg",name);
+  for(const [k, v] of Object.entries(attrs)) {
     if(attr === 'xlink:href')
-      el.setAttributeNS("http://www.w3.org/1999/xlink", 'href', attrs[attr]);
+      el.setAttributeNS("http://www.w3.org/1999/xlink", 'href', v);
     else
-      el.setAttribute(attr, attrs[attr]);
+      el.setAttribute(k, v);
   }
   el.textContent = text;
   return el;
@@ -1468,9 +1461,16 @@ function escapeString(string) {
 }
 
 function* enumerate(iter) {
-  var count = 0;
+  let count = 0;
   for(const x of iter) {
     yield [count, x];
     count++;
   }
+}
+
+function classes(...names) {
+  const good = names.filter(x => x)
+  return good.length ? {
+    class: good.join(" "),
+  } : {}
 }

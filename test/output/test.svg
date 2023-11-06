@@ -35,7 +35,7 @@
 <path d="M152.5 108a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
 <path d="M80 88h10"></path>
 <path d="M152.5 88h10"></path>
-<g class="terminal ">
+<g class="terminal class">
 <path d="M90 88h0"></path>
 <path d="M152.5 88h0"></path>
 <rect x="90" y="77" width="62.5" height="22" rx="10" ry="10"></rect>
@@ -44,7 +44,7 @@
 </g>
 <path d="M162.5 88h20"></path>
 </g>
-<g class="comment ">
+<g class="comment">
 <path d="M60 52h0"></path>
 <path d="M161 52h0"></path>
 <text x="110.5" y="57" class="comment">_(whitespace)</text>
@@ -52,7 +52,7 @@
 </g>
 <path d="M192.5 88h10"></path>
 <path d="M256.5 88h10"></path>
-<g class="terminal ">
+<g class="terminal literal">
 <path d="M202.5 88h0"></path>
 <path d="M256.5 88h0"></path>
 <rect x="202.5" y="77" width="54" height="22" rx="10" ry="10"></rect>
@@ -85,14 +85,14 @@
 <path d="M296.5 88h0"></path>
 <path d="M399 88h0"></path>
 <path d="M325 88h10"></path>
-<g class="decision ">
+<g class="decision simple-and">
 <path d="M296.5 88h0"></path>
 <path d="M325 88h0"></path>
 <path d="M296.5 88v5.5l5.5 5.5h17.5l5.5 -5.5v-11l-5.5 -5.5h-17.5l-5.5 5.5v5.5"></path>
 <text x="310.75" y="92">!</text>
 </g>
 <path d="M335 88h10"></path>
-<g class="terminal ">
+<g class="terminal literal">
 <path d="M345 88h0"></path>
 <path d="M399 88h0"></path>
 <rect x="345" y="77" width="54" height="22" rx="10" ry="10"></rect>
@@ -100,7 +100,7 @@
 </g>
 </g>
 <path d="M409 88h10"></path>
-<g class="terminal ">
+<g class="terminal any">
 <path d="M419 88h0"></path>
 <path d="M447.5 88h0"></path>
 <rect x="419" y="77" width="28.5" height="22" rx="10" ry="10"></rect>
@@ -112,7 +112,7 @@
 </g>
 <path d="M477.5 88h10"></path>
 <path d="M541.5 88h10"></path>
-<g class="terminal ">
+<g class="terminal literal">
 <path d="M487.5 88h0"></path>
 <path d="M541.5 88h0"></path>
 <rect x="487.5" y="77" width="54" height="22" rx="10" ry="10"></rect>
@@ -142,7 +142,7 @@
 <path d="M654 108a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
 <path d="M581.5 88h10"></path>
 <path d="M654 88h10"></path>
-<g class="terminal ">
+<g class="terminal class">
 <path d="M591.5 88h0"></path>
 <path d="M654 88h0"></path>
 <rect x="591.5" y="77" width="62.5" height="22" rx="10" ry="10"></rect>
@@ -151,14 +151,14 @@
 </g>
 <path d="M664 88h20"></path>
 </g>
-<g class="comment ">
+<g class="comment">
 <path d="M561.5 52h0"></path>
 <path d="M662.5 52h0"></path>
 <text x="612" y="57" class="comment">_(whitespace)</text>
 </g>
 </g>
 </g>
-<g class="comment ">
+<g class="comment">
 <path d="M50 28h0"></path>
 <path d="M109 28h0"></path>
 <text x="79.5" y="33" class="comment">comment</text>

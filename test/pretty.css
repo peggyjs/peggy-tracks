@@ -26,6 +26,9 @@ text.comment {
 g.non-terminal text {
   /*font-style: italic;*/
 }
+.literal rect {
+  fill: hsl(254, 83%, 79%);
+}
 rect {
   stroke-width: 3;
   stroke: black;

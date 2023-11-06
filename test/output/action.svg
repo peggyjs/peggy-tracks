@@ -20,7 +20,7 @@
 <path d="M70 79h10"></path>
 <path d="M393 79h10"></path>
 <path d="M134 79h10"></path>
-<g class="terminal ">
+<g class="terminal literal">
 <path d="M80 79h0"></path>
 <path d="M134 79h0"></path>
 <rect x="80" y="68" width="54" height="22" rx="10" ry="10"></rect>
@@ -38,7 +38,7 @@
 <path d="M260.5 99a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
 <path d="M154 79h10"></path>
 <path d="M260.5 79h10"></path>
-<g class="terminal ">
+<g class="terminal class">
 <path d="M164 79h0"></path>
 <path d="M260.5 79h0"></path>
 <rect x="164" y="68" width="96.5" height="22" rx="10" ry="10"></rect>
@@ -50,14 +50,14 @@
 <path d="M290.5 79h0"></path>
 <path d="M393 79h0"></path>
 <path d="M319 79h10"></path>
-<g class="decision ">
+<g class="decision simple-and">
 <path d="M290.5 79h0"></path>
 <path d="M319 79h0"></path>
 <path d="M290.5 79v5.5l5.5 5.5h17.5l5.5 -5.5v-11l-5.5 -5.5h-17.5l-5.5 5.5v5.5"></path>
 <text x="304.75" y="83">&#38;</text>
 </g>
 <path d="M329 79h10"></path>
-<g class="terminal ">
+<g class="terminal literal">
 <path d="M339 79h0"></path>
 <path d="M393 79h0"></path>
 <rect x="339" y="68" width="54" height="22" rx="10" ry="10"></rect>
@@ -65,7 +65,7 @@
 </g>
 </g>
 </g>
-<g class="comment ">
+<g class="comment action">
 <path d="M70 52h0"></path>
 <path d="M136 52h0"></path>
 <text x="103" y="57" class="comment">&#91;action&#93;</text>
@@ -92,7 +92,7 @@
 <path d="M206.5 170a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
 <path d="M134 150h10"></path>
 <path d="M206.5 150h10"></path>
-<g class="terminal ">
+<g class="terminal class">
 <path d="M144 150h0"></path>
 <path d="M206.5 150h0"></path>
 <rect x="144" y="139" width="62.5" height="22" rx="10" ry="10"></rect>
@@ -104,14 +104,14 @@
 <path d="M236.5 150h0"></path>
 <path d="M339 150h0"></path>
 <path d="M265 150h10"></path>
-<g class="decision ">
+<g class="decision simple-and">
 <path d="M236.5 150h0"></path>
 <path d="M265 150h0"></path>
 <path d="M236.5 150v5.5l5.5 5.5h17.5l5.5 -5.5v-11l-5.5 -5.5h-17.5l-5.5 5.5v5.5"></path>
 <text x="250.75" y="154">&#38;</text>
 </g>
 <path d="M275 150h10"></path>
-<g class="terminal ">
+<g class="terminal literal">
 <path d="M285 150h0"></path>
 <path d="M339 150h0"></path>
 <rect x="285" y="139" width="54" height="22" rx="10" ry="10"></rect>
@@ -119,7 +119,7 @@
 </g>
 </g>
 </g>
-<g class="comment ">
+<g class="comment action">
 <path d="M124 123h0"></path>
 <path d="M190 123h0"></path>
 <text x="157" y="128" class="comment">&#91;action&#93;</text>
@@ -128,7 +128,7 @@
 </g>
 <path d="M403 150a10 10 0 0 0 10 -10v-51a10 10 0 0 1 10 -10"></path>
 </g>
-<g class="comment ">
+<g class="comment">
 <path d="M50 28h0"></path>
 <path d="M333 28h0"></path>
 <text x="191.5" y="33" class="comment">number(number without trailing comment)</text>
@@ -164,6 +164,9 @@ text.comment {
 }
 g.non-terminal text {
   /*font-style: italic;*/
+}
+.literal rect {
+  fill: hsl(254, 83%, 79%);
 }
 rect {
   stroke-width: 3;
