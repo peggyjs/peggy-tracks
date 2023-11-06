@@ -138,8 +138,8 @@ export class FakeSVG {
 
 
 export class Path extends FakeSVG {
-  constructor(x,y) {
-    super('path');
+  constructor(x,y,attr) {
+    super('path', attr);
     this.attrs.d = "M"+x+' '+y;
   }
   m(x,y) {
@@ -329,7 +329,7 @@ funcs.ComplexDiagram = (...args)=>new ComplexDiagram(...args);
 
 export class Sequence extends DiagramMultiContainer {
   constructor(...items) {
-    super('g', items);
+    super('g', items, {class: 'Sequence'});
     const numberOfItems = this.items.length;
     this.needsSpace = true;
     this.up = this.down = this.height = this.width = 0;
@@ -455,7 +455,7 @@ funcs.Stack = (...args)=>new Stack(...args);
 
 export class OptionalSequence extends DiagramMultiContainer {
   constructor(...items) {
-    super('g', items);
+    super('g', items, {class: 'OptionalSequence'});
     if( items.length === 0 ) {
       throw new RangeError("OptionalSequence() must have at least one child.");
     }
@@ -577,7 +577,7 @@ funcs.OptionalSequence = (...args)=>new OptionalSequence(...args);
 
 export class AlternatingSequence extends DiagramMultiContainer {
   constructor(...items) {
-    super('g', items);
+    super('g', items, {class: 'AlternatingSequence'});
     if( items.length === 1 ) {
       return new Sequence(items);
     }
@@ -660,7 +660,7 @@ funcs.AlternatingSequence = (...args)=>new AlternatingSequence(...args);
 
 export class Choice extends DiagramMultiContainer {
   constructor(normal, ...items) {
-    super('g', items);
+    super('g', items, {class: 'Choice'});
     if( typeof normal !== "number" || normal !== Math.floor(normal) ) {
       throw new TypeError("The first argument of Choice() must be an integer.");
     } else if(normal < 0 || normal >= items.length) {
@@ -751,7 +751,7 @@ funcs.Choice = (...args)=>new Choice(...args);
 
 export class HorizontalChoice extends DiagramMultiContainer {
   constructor(...items) {
-    super('g', items);
+    super('g', items, {class: 'HorizontalChoice'});
     if( items.length === 0 ) {
       throw new RangeError("HorizontalChoice() must have at least one child.");
     }
@@ -902,7 +902,7 @@ funcs.HorizontalChoice = (...args)=>new HorizontalChoice(...args);
 
 export class MultipleChoice extends DiagramMultiContainer {
   constructor(normal, type, ...items) {
-    super('g', items);
+    super('g', items, {class: 'MultipleChoice'});
     if( typeof normal !== "number" || normal !== Math.floor(normal) ) {
       throw new TypeError("The first argument of MultipleChoice() must be an integer.");
     } else if(normal < 0 || normal >= items.length) {
@@ -1021,7 +1021,7 @@ export class Optional extends FakeSVG {
     else if ( skip === "skip" )
       return new Choice(0, new Skip(), item);
     else
-      throw "Unknown value for Optional()'s 'skip' argument.";
+      throw new Error(`Unknown value for Optional()'s 'skip' argument: "${skip}"`);
   }
 }
 funcs.Optional = (...args)=>new Optional(...args);
@@ -1029,8 +1029,7 @@ funcs.Optional = (...args)=>new Optional(...args);
 
 export class OneOrMore extends FakeSVG {
   constructor(item, {rep=undefined, min=undefined, max=undefined} = {}) {
-    super('g');
-    rep = rep || (new Skip());
+    super('g', {class: 'OneOrMore'});
     this.item = wrapString(item);
     this.rep = wrapString(rep);
     this.min = min;
@@ -1063,10 +1062,6 @@ export class OneOrMore extends FakeSVG {
     new Path(x+this.width-Options.AR,y+this.height).right(Options.AR).addTo(this);
     this.item.format(x+Options.AR,y,this.width-Options.AR*2).addTo(this);
 
-    if (this.min != null) {
-      this.min.format(x+this.width, y+distanceFromY/2, this.width - Options.AR*2).addTo(this);
-    }
-    // console.log({min: this.min, max:this.max})
     return this;
   }
   walk(cb) {
@@ -1088,7 +1083,7 @@ funcs.ZeroOrMore = (...args)=>new ZeroOrMore(...args);
 
 export class Group extends FakeSVG {
   constructor(item, label) {
-    super('g');
+    super('g', {class: 'Group'});
     this.item = wrapString(item);
     this.label =
       label instanceof FakeSVG
@@ -1150,7 +1145,7 @@ funcs.Group = (...args)=>new Group(...args);
 
 export class Start extends FakeSVG {
   constructor({type="simple", label=undefined}={}) {
-    super('g');
+    super('g', {class: 'Start'});
     this.width = 20;
     this.height = 0;
     this.up = 10;
@@ -1191,7 +1186,7 @@ funcs.Start = (...args)=>new Start(...args);
 
 export class End extends FakeSVG {
   constructor({type="simple"}={}) {
-    super('path');
+    super('path', {class: 'End'});
     this.width = 20;
     this.height = 0;
     this.up = 10;
@@ -1215,11 +1210,12 @@ funcs.End = (...args)=>new End(...args);
 
 
 export class Terminal extends FakeSVG {
-  constructor(text, {href=undefined, title=undefined, cls=undefined}={}) {
+  constructor(text, {href=undefined, title=undefined, cls=undefined, noLines=undefined}={}) {
     super('g', classes('terminal', cls));
     this.text = ""+text;
     this.href = href;
     this.title = title;
+    this.noLines = noLines;
     this.width = this.text.length * Options.CHAR_WIDTH + 20; /* Assume that each char is .5em, and that the em is 16px */
     this.height = 0;
     this.up = 11;
@@ -1233,8 +1229,10 @@ export class Terminal extends FakeSVG {
   format(x, y, width) {
     // Hook up the two sides if this is narrower than its stated width.
     const gaps = determineGaps(width, this.width);
-    new Path(x,y).h(gaps[0]).addTo(this);
-    new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
+    if (!this.noLines) {
+      new Path(x,y).h(gaps[0]).addTo(this);
+      new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
+    }
     x += gaps[0];
 
     new FakeSVG('rect', {x:x, y:y-11, width:this.width, height:this.up+this.down, rx:10, ry:10}).addTo(this);
@@ -1252,11 +1250,12 @@ funcs.Terminal = (...args)=>new Terminal(...args);
 
 
 export class NonTerminal extends FakeSVG {
-  constructor(text, {href=undefined, title=undefined, cls=undefined}={}) {
+  constructor(text, {href=undefined, title=undefined, cls=undefined, noLines=undefined}={}) {
     super('g', classes('non-terminal', cls));
     this.text = ""+text;
     this.href = href;
     this.title = title;
+    this.noLines = noLines;
     this.width = this.text.length * Options.CHAR_WIDTH + 20;
     this.height = 0;
     this.up = 11;
@@ -1270,8 +1269,10 @@ export class NonTerminal extends FakeSVG {
   format(x, y, width) {
     // Hook up the two sides if this is narrower than its stated width.
     const gaps = determineGaps(width, this.width);
-    new Path(x,y).h(gaps[0]).addTo(this);
-    new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
+    if (!this.noLines) {
+      new Path(x,y).h(gaps[0]).addTo(this);
+      new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
+    }
     x += gaps[0];
 
     new FakeSVG('rect', {x:x, y:y-11, width:this.width, height:this.up+this.down}).addTo(this);
@@ -1289,11 +1290,12 @@ funcs.NonTerminal = (...args)=>new NonTerminal(...args);
 
 // hildjj: added diamonds for & and !
 export class Decision extends FakeSVG {
-  constructor(text, {href=undefined, title=undefined, cls=undefined}={}) {
+  constructor(text, {href=undefined, title=undefined, cls=undefined, noLines=undefined}={}) {
     super('g', classes("decision", cls));
     this.text = ""+text;
     this.href = href;
     this.title = title;
+    this.noLines = noLines;
     this.width = this.text.length * Options.CHAR_WIDTH + 20;
     this.height = 0;
     this.up = 11;
@@ -1307,8 +1309,10 @@ export class Decision extends FakeSVG {
   format(x, y, width) {
     // Hook up the two sides if this is narrower than its stated width.
     const gaps = determineGaps(width, this.width);
-    new Path(x,y).h(gaps[0]).addTo(this);
-    new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
+    if (!this.noLines) {
+      new Path(x,y).h(gaps[0]).addTo(this);
+      new Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
+    }
     x += gaps[0];
 
     new Path(x, y)
@@ -1336,12 +1340,13 @@ export class Decision extends FakeSVG {
 funcs.Decision = (...args)=>new Decision(...args);
 
 export class Comment extends FakeSVG {
-  constructor(text, {href=undefined, title=undefined, cls=undefined}={}) {
+  constructor(text, {href=undefined, title=undefined, cls=undefined, noLines=undefined}={}) {
     super('g', classes("comment", cls));
     this.text = ""+text;
     this.href = href;
     this.title = title;
-    this.width = this.text.length * Options.COMMENT_CHAR_WIDTH + 10;
+    this.noLines = noLines;
+    this.width = (this.text.length * Options.COMMENT_CHAR_WIDTH) + 10;
     this.height = 0;
     this.up = 8;
     this.down = 8;
@@ -1354,8 +1359,10 @@ export class Comment extends FakeSVG {
   format(x, y, width) {
     // Hook up the two sides if this is narrower than its stated width.
     const gaps = determineGaps(width, this.width);
-    new Path(x,y).h(gaps[0]).addTo(this);
-    new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
+    if (!this.noLines) {
+      new Path(x,y).h(gaps[0]).addTo(this);
+      new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
+    }
     x += gaps[0];
 
     const text = new FakeSVG('text', {x:x+this.width/2, y:y+5, class:'comment'}, this.text);
@@ -1373,7 +1380,7 @@ funcs.Comment = (...args)=>new Comment(...args);
 
 export class Skip extends FakeSVG {
   constructor() {
-    super('g');
+    super('g', {class: 'Skip'});
     this.width = 0;
     this.height = 0;
     this.up = 0;
@@ -1394,7 +1401,7 @@ funcs.Skip = (...args)=>new Skip();
 
 export class Block extends FakeSVG {
   constructor({width=50, up=15, height=25, down=15, needsSpace=true}={}) {
-    super('g');
+    super('g', {class: 'Block'});
     this.width = width;
     this.height = height;
     this.up = up;
@@ -1428,7 +1435,10 @@ function determineGaps(outer, inner) {
 }
 
 function wrapString(value) {
-    return value instanceof FakeSVG ? value : new Terminal(""+value);
+  if (!value) {
+    return new Skip();
+  }
+  return value instanceof FakeSVG ? value : new Terminal(""+value);
 }
 
 function sum(iter, func) {

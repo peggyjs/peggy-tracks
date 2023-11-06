@@ -1,22 +1,22 @@
 <svg class="railroad-diagram" width="473" height="206" viewBox="0 0 473 206" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
-<g>
+<g class="Start">
 <path d="M20 69v20m0 -10h20"></path>
 </g>
 <path d="M40 79h10"></path>
-<g>
+<g class="Group">
 <path d="M50 79h0"></path>
 <path d="M423 79h0"></path>
 <rect x="50" y="36" width="373" height="150" rx="10" ry="10" class="group-box"></rect>
-<g>
+<g class="Choice">
 <path d="M50 79h0"></path>
 <path d="M423 79h0"></path>
 <path d="M50 79h20"></path>
-<g>
+<g class="Group">
 <path d="M70 79h0"></path>
 <path d="M403 79h0"></path>
 <rect x="70" y="60" width="333" height="47" rx="10" ry="10" class="group-box"></rect>
-<g>
+<g class="Sequence">
 <path d="M70 79h10"></path>
 <path d="M393 79h10"></path>
 <path d="M134 79h10"></path>
@@ -28,11 +28,11 @@
 </g>
 <path d="M144 79h10"></path>
 <path d="M270.5 79h10"></path>
-<g>
+<g class="OneOrMore">
 <path d="M154 79h0"></path>
 <path d="M270.5 79h0"></path>
 <path d="M164 79a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
-<g>
+<g class="Skip">
 <path d="M164 99h96.5"></path>
 </g>
 <path d="M260.5 99a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
@@ -46,7 +46,7 @@
 </g>
 </g>
 <path d="M280.5 79h10"></path>
-<g>
+<g class="Sequence">
 <path d="M290.5 79h0"></path>
 <path d="M393 79h0"></path>
 <path d="M319 79h10"></path>
@@ -74,19 +74,19 @@
 </g>
 <path d="M403 79h20"></path>
 <path d="M50 79a10 10 0 0 1 10 10v51a10 10 0 0 0 10 10"></path>
-<g>
+<g class="Group">
 <path d="M70 150h54"></path>
 <path d="M349 150h54"></path>
 <rect x="124" y="131" width="225" height="47" rx="10" ry="10" class="group-box"></rect>
-<g>
+<g class="Sequence">
 <path d="M124 150h10"></path>
 <path d="M339 150h10"></path>
 <path d="M216.5 150h10"></path>
-<g>
+<g class="OneOrMore">
 <path d="M134 150h0"></path>
 <path d="M216.5 150h0"></path>
 <path d="M144 150a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
-<g>
+<g class="Skip">
 <path d="M144 170h62.5"></path>
 </g>
 <path d="M206.5 170a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
@@ -100,7 +100,7 @@
 </g>
 </g>
 <path d="M226.5 150h10"></path>
-<g>
+<g class="Sequence">
 <path d="M236.5 150h0"></path>
 <path d="M339 150h0"></path>
 <path d="M265 150h10"></path>
@@ -135,7 +135,7 @@
 </g>
 </g>
 <path d="M423 79h10"></path>
-<path d="M 433 79 h 20 m 0 -10 v 20"></path>
+<path class="End" d="M 433 79 h 20 m 0 -10 v 20"></path>
 </g>
 <style>svg {
   background-color: hsl(30,20%,95%);

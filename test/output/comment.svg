@@ -1,14 +1,14 @@
 <svg class="railroad-diagram" width="556" height="112" viewBox="0 0 556 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
-<g>
+<g class="Start">
 <path d="M20 54v20m0 -10h20"></path>
 </g>
 <path d="M40 64h10"></path>
-<g>
+<g class="Group">
 <path d="M50 64h0"></path>
 <path d="M506 64h0"></path>
 <rect x="50" y="36" width="456" height="56" rx="10" ry="10" class="group-box"></rect>
-<g>
+<g class="Sequence">
 <path d="M50 64h10"></path>
 <path d="M496 64h10"></path>
 <path d="M88.5 64h10"></path>
@@ -26,30 +26,30 @@
 <rect x="108.5" y="53" width="54" height="22" rx="10" ry="10"></rect>
 <text x="135.5" y="68">"/*"</text>
 </g>
-<g>
+<g class="Choice">
 <path d="M172.5 64h0"></path>
 <path d="M383.5 64h0"></path>
 <path d="M172.5 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
-<g>
+<g class="Skip">
 <path d="M192.5 44h171"></path>
 </g>
 <path d="M363.5 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
 <path d="M172.5 64h20"></path>
-<g>
+<g class="OneOrMore">
 <path d="M192.5 64h0"></path>
 <path d="M363.5 64h0"></path>
 <path d="M202.5 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
-<g>
+<g class="Skip">
 <path d="M202.5 84h151"></path>
 </g>
 <path d="M353.5 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
 <path d="M192.5 64h10"></path>
 <path d="M353.5 64h10"></path>
-<g>
+<g class="Sequence">
 <path d="M202.5 64h0"></path>
 <path d="M353.5 64h0"></path>
 <path d="M305 64h10"></path>
-<g>
+<g class="Sequence">
 <path d="M202.5 64h0"></path>
 <path d="M305 64h0"></path>
 <path d="M231 64h10"></path>
@@ -101,7 +101,7 @@
 </g>
 </g>
 <path d="M506 64h10"></path>
-<path d="M 516 64 h 20 m 0 -10 v 20"></path>
+<path class="End" d="M 516 64 h 20 m 0 -10 v 20"></path>
 </g>
 <style>
   svg {
