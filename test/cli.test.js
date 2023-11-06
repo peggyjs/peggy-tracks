@@ -1,6 +1,7 @@
 import { readFile, rm, stat } from "fs/promises";
 import CLI from "../lib/cli.js";
 import { Transform } from "stream";
+import path from "path";
 import test from "ava";
 import url from "url";
 
@@ -79,19 +80,24 @@ test("default output", async t => {
 });
 
 test("file output", async t => {
-  const outfile = url.fileURLToPath(new URL("test.svg", import.meta.url));
+  let outfile = url.fileURLToPath(new URL("test.svg", import.meta.url));
   // Didn't exist when we started
   await t.throwsAsync(() => stat(outfile));
   const inp = url.fileURLToPath(new URL("test.peggy", import.meta.url));
   await exec(t, ["-s", "comment", inp]);
-  const outtext = await readFile(outfile, "utf8");
+  let outtext = await readFile(outfile, "utf8");
   t.regex(outtext, /^<svg/);
   await rm(outfile);
+  t.snapshot(outtext);
 
   const outd = url.fileURLToPath(new URL("output", import.meta.url));
+  outfile = path.join(outd, "comment.svg");
   await exec(t, ["-o", outd, "-s", "comment", "-e", inp]);
-  const outf = url.fileURLToPath(new URL("output/comment.svg", import.meta.url));
-  await exec(t, ["-o", outf, "-s", "comment", inp]);
+  outtext = await readFile(outfile, "utf8");
+  t.snapshot(outtext);
+  await exec(t, ["-o", outfile, "-s", "comment", inp]);
+  const outtext2 = await readFile(outfile, "utf8");
+  t.is(outtext, outtext2);
 });
 
 test("grammar error", async t => {
@@ -144,10 +150,13 @@ test("input css", async t => {
 
 test("more examples", async t => {
   const inp = url.fileURLToPath(new URL("test.peggy", import.meta.url));
-  const action = url.fileURLToPath(new URL("output/action.svg", import.meta.url));
+  const actionURL = new URL("output/action.svg", import.meta.url);
+  const action = url.fileURLToPath(actionURL);
   const css = url.fileURLToPath(new URL("pretty.css", import.meta.url));
   await exec(t, ["--action", "--output", action, "--css", css, "-s", "number", inp]);
+  t.snapshot(await readFile(actionURL, "utf8"));
 
-  const full = url.fileURLToPath(new URL("output/full.svg", import.meta.url));
-  await exec(t, ["-e", "-o", full, inp]);
+  const fullURL = url.fileURLToPath(new URL("output/full.svg", import.meta.url));
+  await exec(t, ["-e", "-o", fullURL, inp]);
+  t.snapshot(await readFile(fullURL, "utf8"));
 });
