@@ -83,7 +83,7 @@ test("file output", async t => {
   let outfile = url.fileURLToPath(new URL("test.svg", import.meta.url));
   // Didn't exist when we started
   await t.throwsAsync(() => stat(outfile));
-  const inp = url.fileURLToPath(new URL("test.peggy", import.meta.url));
+  let inp = url.fileURLToPath(new URL("test.peggy", import.meta.url));
   await exec(t, ["-s", "comment", inp]);
   let outtext = await readFile(outfile, "utf8");
   t.regex(outtext, /^<svg/);
@@ -98,6 +98,12 @@ test("file output", async t => {
   await exec(t, ["-o", outfile, "-s", "comment", inp]);
   const outtext2 = await readFile(outfile, "utf8");
   t.is(outtext, outtext2);
+
+  inp = url.fileURLToPath(new URL("repeat.peggy", import.meta.url));
+  outfile = path.join(outd, "repeat.svg");
+  await exec(t, ["-o", outd, inp]);
+  outtext = await readFile(outfile, "utf8");
+  t.snapshot(outtext);
 });
 
 test("grammar error", async t => {

@@ -1032,12 +1032,30 @@ export class OneOrMore extends FakeSVG {
     super('g', {class: 'OneOrMore'});
     this.item = wrapString(item);
     this.rep = wrapString(rep);
-    this.min = min;
-    this.max = max;
-    this.width = Math.max(this.item.width, this.rep.width) + Options.AR*2;
+    this.min = min ?? new Null();
+    this.max = max ?? new Null();
+    this.min.noLines = true;
+    this.max.noLines = true;
+    this.dots = (min || max) ? new Comment('..', {cls: 'range', noLines: true}) : new Null();
+    for (const m of [this.min, this.max]) {
+      if (m.width) {
+        m.width -= 10;
+      }
+    }
+
+    this.extra = this.min.width + this.dots.width + this.max.width;
+    if (this.extra) {
+      this.extra += 5;
+    }
+    this.width = Math.max(this.item.width, this.rep.width) + Options.AR*2 + this.extra;
     this.height = this.item.height;
     this.up = this.item.up;
-    this.down = Math.max(Options.AR*2, this.item.down + Options.VS + this.rep.up + this.rep.height + this.rep.down);
+    this.down = Math.max(
+      Options.AR*2,
+      this.item.down + Options.VS + this.rep.up + this.rep.height + this.rep.down,
+      this.min.down + this.min.up + 5,
+      this.max.down + this.max.up + 5
+    );
     this.needsSpace = true;
     if(Options.DEBUG) {
       this.attrs['data-updown'] = this.up + " " + this.height + " " + this.down;
@@ -1054,14 +1072,30 @@ export class OneOrMore extends FakeSVG {
     // Draw repeat arc
     const distanceFromY = Math.max(Options.AR*2, this.item.height+this.item.down+Options.VS+this.rep.up);
     new Path(x+Options.AR,y).arc('nw').down(distanceFromY-Options.AR*2).arc('ws').addTo(this);
-    this.rep.format(x+Options.AR, y+distanceFromY, this.width - Options.AR*2).addTo(this);
-    new Path(x+this.width-Options.AR, y+distanceFromY+this.rep.height).arc('se').up(distanceFromY-Options.AR*2+this.rep.height-this.item.height).arc('en').addTo(this);
+    this.rep.format(x+Options.AR, y+distanceFromY, this.width - Options.AR*2 - this.extra).addTo(this);
+    new Path(x+this.width-Options.AR-this.extra, y+distanceFromY+this.rep.height).arc('se').up(distanceFromY-Options.AR*2+this.rep.height-this.item.height).arc('en').addTo(this);
 
     // Draw item
+    let dx = x + this.width - this.extra;
     new Path(x,y).right(Options.AR).addTo(this);
-    new Path(x+this.width-Options.AR,y+this.height).right(Options.AR).addTo(this);
-    this.item.format(x+Options.AR,y,this.width-Options.AR*2).addTo(this);
+    new Path(dx-Options.AR,y+this.height).right(Options.AR + this.extra).addTo(this);
+    this.item.format(x+Options.AR,y,this.width-this.extra-Options.AR*2).addTo(this);
 
+    let dy2 = distanceFromY / 2;
+
+    // If any of these are tall enough to hit the line above, scrooch
+    // them down.  See "this.down" calc in constructor.
+    const maxUp = Math.max(this.min.up, this.dots.up, this.max.up)
+    if (dy2 < maxUp) {
+      dy2 = maxUp + 5;
+    }
+    dy2 += y;
+    dx += 5;
+    this.min.format(dx, dy2, this.min.width).addTo(this);
+    dx += this.min.width;
+    this.dots.format(dx, dy2, this.dots.width).addTo(this);
+    dx += this.dots.width;
+    this.max.format(dx, dy2, this.max.width).addTo(this);
     return this;
   }
   walk(cb) {
@@ -1398,6 +1432,27 @@ export class Skip extends FakeSVG {
 }
 funcs.Skip = (...args)=>new Skip();
 
+export class Null extends FakeSVG {
+  constructor() {
+    super();
+    this.width = 0;
+    this.height = 0;
+    this.up = 0;
+    this.down = 0;
+    this.needsSpace = false;
+    if(Options.DEBUG) {
+      this.attrs['data-updown'] = this.up + " " + this.height + " " + this.down;
+      this.attrs['data-type'] = "skip";
+    }
+  }
+  format(x, y, width) {
+    return this;
+  }
+  addTo(parent) {
+    // No-op
+    return this;
+  }
+}
 
 export class Block extends FakeSVG {
   constructor({width=50, up=15, height=25, down=15, needsSpace=true}={}) {
