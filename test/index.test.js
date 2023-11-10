@@ -1,6 +1,6 @@
+import { tracks, wrapCount } from "../lib/index.js";
 import fs from "fs";
 import test from "ava";
-import { tracks } from "../lib/index.js";
 
 test("it tracks", t => {
   const diag = tracks({
@@ -32,4 +32,8 @@ test("actions", t => {
   });
   t.truthy(diag);
   t.regex(diag.toStandalone(), /<title>return 1<\/title>/);
+});
+
+test("wrapCount", t => {
+  t.is(wrapCount(null), null);
 });

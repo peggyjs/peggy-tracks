@@ -203,8 +203,8 @@
 <g class="OneOrMore">
 <path d="M910 103h135.5"></path>
 <path d="M1262.5 103h10"></path>
-<g class="terminal">
-<rect x="920" y="76" width="35.5" height="22" rx="10" ry="10"></rect>
+<g class="non-terminal">
+<rect x="920" y="76" width="35.5" height="22"></rect>
 <text x="937.75" y="91">min</text>
 </g>
 <g class="comment range">
@@ -331,8 +331,8 @@
 <g class="OneOrMore">
 <path d="M1378 103h135.5"></path>
 <path d="M1582.5 103h10"></path>
-<g class="terminal">
-<rect x="1388" y="76" width="35.5" height="22" rx="10" ry="10"></rect>
+<g class="non-terminal">
+<rect x="1388" y="76" width="35.5" height="22"></rect>
 <text x="1405.75" y="91">min</text>
 </g>
 <g class="comment range">

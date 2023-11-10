@@ -1,6 +1,6 @@
 {
   "reporter": ["lcov"],
-  "include": ["lib", "vendor/railroad-diagrams"],
+  "include": ["lib"],
   "exclude": ["test"],
   "all": true
 }
