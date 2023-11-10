@@ -1,3 +1,4 @@
+export function wrapCount(m: any, defaultValue?: string): Decision | Comment | NonTerminal;
 /**
  * Generate a railroad track diagram from a grammer
  *
@@ -34,6 +35,9 @@ export type TrackOptions = {
      */
     parserOptions: object;
 };
+import { Decision } from "../vendor/railroad-diagrams/railroad.js";
+import { Comment } from "../vendor/railroad-diagrams/railroad.js";
+import { NonTerminal } from "../vendor/railroad-diagrams/railroad.js";
 import { Diagram } from "../vendor/railroad-diagrams/railroad.js";
 import { ComplexDiagram } from "../vendor/railroad-diagrams/railroad.js";
 import { defaultCSS } from "../vendor/railroad-diagrams/railroad.js";

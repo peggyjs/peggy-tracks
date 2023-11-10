@@ -9,12 +9,12 @@ export namespace Options {
     let CHAR_WIDTH: number;
     let COMMENT_CHAR_WIDTH: number;
 }
-export const defaultCSS: "\n\tsvg {\n\t\tbackground-color: hsl(30,20%,95%);\n\t}\n\tpath {\n\t\tstroke-width: 3;\n\t\tstroke: black;\n\t\tfill: rgba(0,0,0,0);\n\t}\n\ttext {\n\t\tfont: bold 14px monospace;\n\t\ttext-anchor: middle;\n\t\twhite-space: pre;\n\t}\n\ttext.diagram-text {\n\t\tfont-size: 12px;\n\t}\n\ttext.diagram-arrow {\n\t\tfont-size: 16px;\n\t}\n\ttext.label {\n\t\ttext-anchor: start;\n\t}\n\ttext.comment {\n\t\tfont: italic 12px monospace;\n\t}\n\tg.non-terminal text {\n\t\t/*font-style: italic;*/\n\t}\n\trect {\n\t\tstroke-width: 3;\n\t\tstroke: black;\n\t\tfill: hsl(120,100%,90%);\n\t}\n\trect.group-box {\n\t\tstroke: gray;\n\t\tstroke-dasharray: 10 5;\n\t\tfill: none;\n\t}\n\tpath.diagram-text {\n\t\tstroke-width: 3;\n\t\tstroke: black;\n\t\tfill: white;\n\t\tcursor: help;\n\t}\n\t.decision path {\n    fill: #ccc;\n  }\n\tg.diagram-text:hover path.diagram-text {\n\t\tfill: #eee;\n\t}";
+export const defaultCSS: "\n  svg {\n    background-color: hsl(30,20%,95%);\n  }\n  path {\n    stroke-width: 3;\n    stroke: black;\n    fill: rgba(0,0,0,0);\n  }\n  text {\n    font: bold 14px monospace;\n    text-anchor: middle;\n    white-space: pre;\n  }\n  text.diagram-text {\n    font-size: 12px;\n  }\n  text.diagram-arrow {\n    font-size: 16px;\n  }\n  text.label {\n    text-anchor: start;\n  }\n  text.comment {\n    font: italic 12px monospace;\n  }\n  g.non-terminal text {\n    /*font-style: italic;*/\n  }\n  rect {\n    stroke-width: 3;\n    stroke: black;\n    fill: hsl(120,100%,90%);\n  }\n  rect.group-box {\n    stroke: gray;\n    stroke-dasharray: 10 5;\n    fill: none;\n  }\n  path.diagram-text {\n    stroke-width: 3;\n    stroke: black;\n    fill: white;\n    cursor: help;\n  }\n  .decision path {\n    fill: #ccc;\n  }\n  g.diagram-text:hover path.diagram-text {\n    fill: #eee;\n  }\n  text.repeat-text {\n    font: italic 12px monospace;\n    text-anchor: end;\n  }\n  .repeat-box > rect.group-box {\n    stroke: gray;\n    stroke-width: 2;\n    stroke-dasharray: 1 5;\n    fill: none;\n  }\n  .delimiter > rect.group-box {\n    stroke: gray;\n    stroke-width: 2;\n    stroke-dasharray: 1 5;\n    fill: none;\n  }\n";
 export class FakeSVG {
-    constructor(tagName: any, attrs: any, text: any);
-    children: any;
+    constructor(tagName: any, attrs?: {}, text?: any[]);
     tagName: any;
-    attrs: any;
+    attrs: {};
+    children: any[];
     format(x: any, y: any, width: any): void;
     addTo(parent: any): any;
     toSVG(): any;
@@ -22,7 +22,7 @@ export class FakeSVG {
     walk(cb: any): void;
 }
 export class Path extends FakeSVG {
-    constructor(x: any, y: any);
+    constructor(x: any, y: any, attr: any);
     m(x: any, y: any): this;
     h(val: any): this;
     right(val: any): this;
@@ -125,20 +125,37 @@ export class Optional extends FakeSVG {
     constructor(item: any, skip: any);
 }
 export class OneOrMore extends FakeSVG {
-    constructor(item: any, rep: any);
+    constructor(item: any, { rep, min, max }?: {
+        rep?: any;
+        min?: any;
+        max?: any;
+    });
     item: FakeSVG;
     rep: FakeSVG;
-    width: number;
+    min: any;
+    max: any;
+    dots: Comment | Null;
+    extra: any;
+    width: any;
     height: any;
-    up: any;
+    up: number;
     down: number;
     needsSpace: boolean;
     format(x: any, y: any, width: any): this;
 }
 export class ZeroOrMore extends FakeSVG {
+    constructor(item: any, { rep, skip, min, max }?: {
+        rep?: any;
+        skip?: any;
+        min?: any;
+        max?: any;
+    });
 }
 export class Group extends FakeSVG {
-    constructor(item: any, label: any);
+    constructor(item: any, { label, cls }?: {
+        label?: any;
+        cls?: any;
+    });
     item: FakeSVG;
     label: FakeSVG;
     width: number;
@@ -152,7 +169,7 @@ export class Group extends FakeSVG {
 export class Start extends FakeSVG {
     constructor({ type, label }?: {
         type?: string;
-        label: any;
+        label?: any;
     });
     width: number;
     height: number;
@@ -174,15 +191,16 @@ export class End extends FakeSVG {
     format(x: any, y: any): this;
 }
 export class Terminal extends FakeSVG {
-    constructor(text: any, { href, title, cls }?: {
-        href: any;
-        title: any;
-        cls: any;
+    constructor(text: any, { href, title, cls, noLines }?: {
+        href?: any;
+        title?: any;
+        cls?: any;
+        noLines?: any;
     });
     text: string;
     href: any;
     title: any;
-    cls: any;
+    noLines: any;
     width: number;
     height: number;
     up: number;
@@ -191,15 +209,16 @@ export class Terminal extends FakeSVG {
     format(x: any, y: any, width: any): this;
 }
 export class NonTerminal extends FakeSVG {
-    constructor(text: any, { href, title, cls }?: {
+    constructor(text: any, { href, title, cls, noLines }?: {
         href?: any;
         title?: any;
-        cls?: string;
+        cls?: any;
+        noLines?: any;
     });
     text: string;
     href: any;
     title: any;
-    cls: string;
+    noLines: any;
     width: number;
     height: number;
     up: number;
@@ -208,15 +227,16 @@ export class NonTerminal extends FakeSVG {
     format(x: any, y: any, width: any): this;
 }
 export class Decision extends FakeSVG {
-    constructor(text: any, { href, title, cls }?: {
+    constructor(text: any, { href, title, cls, noLines }?: {
         href?: any;
         title?: any;
-        cls?: string;
+        cls?: any;
+        noLines?: any;
     });
     text: string;
     href: any;
     title: any;
-    cls: string;
+    noLines: any;
     width: number;
     height: number;
     up: number;
@@ -225,15 +245,16 @@ export class Decision extends FakeSVG {
     format(x: any, y: any, width: any): this;
 }
 export class Comment extends FakeSVG {
-    constructor(text: any, { href, title, cls }?: {
+    constructor(text: any, { href, title, cls, noLines }?: {
         href?: any;
         title?: any;
-        cls?: string;
+        cls?: any;
+        noLines?: any;
     });
     text: string;
     href: any;
     title: any;
-    cls: string;
+    noLines: any;
     width: number;
     height: number;
     up: number;
@@ -249,6 +270,16 @@ export class Skip extends FakeSVG {
     down: number;
     needsSpace: boolean;
     format(x: any, y: any, width: any): this;
+}
+export class Null extends FakeSVG {
+    constructor();
+    width: number;
+    height: number;
+    up: number;
+    down: number;
+    needsSpace: boolean;
+    format(x: any, y: any, width: any): this;
+    addTo(parent: any): this;
 }
 export class Block extends FakeSVG {
     constructor({ width, up, height, down, needsSpace }?: {
