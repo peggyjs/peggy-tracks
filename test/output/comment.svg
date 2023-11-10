@@ -4,7 +4,7 @@
 <path d="M20 54v20m0 -10h20"></path>
 </g>
 <path d="M40 64h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M50 64h0"></path>
 <path d="M506 64h0"></path>
 <rect x="50" y="36" width="456" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -153,5 +153,22 @@
   }
   g.diagram-text:hover path.diagram-text {
     fill: #eee;
-  }</style>
+  }
+  text.repeat-text {
+    font: italic 12px monospace;
+    text-anchor: end;
+  }
+  .repeat-box > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+  .delimiter > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+</style>
 </svg>

@@ -4,7 +4,7 @@
 <path d="M20 69v20m0 -10h20"></path>
 </g>
 <path d="M40 79h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M50 79h0"></path>
 <path d="M423 79h0"></path>
 <rect x="50" y="36" width="373" height="150" rx="10" ry="10" class="group-box"></rect>
@@ -12,7 +12,7 @@
 <path d="M50 79h0"></path>
 <path d="M423 79h0"></path>
 <path d="M50 79h20"></path>
-<g class="Group">
+<g class="Group action">
 <path d="M70 79h0"></path>
 <path d="M403 79h0"></path>
 <rect x="70" y="60" width="333" height="47" rx="10" ry="10" class="group-box"></rect>
@@ -74,7 +74,7 @@
 </g>
 <path d="M403 79h20"></path>
 <path d="M50 79a10 10 0 0 1 10 10v51a10 10 0 0 0 10 10"></path>
-<g class="Group">
+<g class="Group action">
 <path d="M70 150h54"></path>
 <path d="M349 150h54"></path>
 <rect x="124" y="131" width="225" height="47" rx="10" ry="10" class="group-box"></rect>

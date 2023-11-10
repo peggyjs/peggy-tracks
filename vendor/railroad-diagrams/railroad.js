@@ -80,7 +80,24 @@ export const defaultCSS = `
   }
   g.diagram-text:hover path.diagram-text {
     fill: #eee;
-  }`;
+  }
+  text.repeat-text {
+    font: italic 12px monospace;
+    text-anchor: end;
+  }
+  .repeat-box > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+  .delimiter > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+`;
 
 
 export class FakeSVG {
@@ -968,7 +985,7 @@ export class MultipleChoice extends DiagramMultiContainer {
 
     new Path(x + 30, y).right(Options.AR).addTo(this);
     normal.format(x + 30 + Options.AR, y, this.innerWidth).addTo(this);
-    new Path(x + 30 + Options.AR + this.innerWidth, y + this.height).right(Options.AR).addTo(this);
+    new Path(x + 30 + Options.AR + this.innerWidth, y + this.height, {class: 'mchoice-4'}).right(Options.AR).addTo(this);
 
     for(let i = this.normal+1; i < this.items.length; i++) {
       let item = this.items[i];
@@ -1044,31 +1061,46 @@ export class OneOrMore extends FakeSVG {
     }
 
     this.extra = this.min.width + this.dots.width + this.max.width;
+    this.width = Math.max(this.item.width, this.rep.width) + Options.AR*2 + this.extra;
+    this.height = this.item.height;
+    this.up = Math.max(
+      this.item.up,
+      this.min.up + this.min.down + 5,
+      this.max.up + this.max.down + 5,
+    );
+    this.down = Math.max(
+      Options.AR*2,
+      this.item.down + Options.VS + this.rep.up + this.rep.height + this.rep.down
+    );
     if (this.extra) {
       this.extra += 5;
     }
-    this.width = Math.max(this.item.width, this.rep.width) + Options.AR*2 + this.extra;
-    this.height = this.item.height;
-    this.up = this.item.up;
-    this.down = Math.max(
-      Options.AR*2,
-      this.item.down + Options.VS + this.rep.up + this.rep.height + this.rep.down,
-      this.min.down + this.min.up + 5,
-      this.max.down + this.max.up + 5
-    );
     this.needsSpace = true;
     if(Options.DEBUG) {
       this.attrs['data-updown'] = this.up + " " + this.height + " " + this.down;
       this.attrs['data-type'] = "oneormore";
     }
+    if (this.extra) {
+      return new Group(this, { label: 'repeat', cls: 'repeat-box'});
+    }
   }
   format(x,y,width) {
     // Hook up the two sides if this is narrower than its stated width.
     const gaps = determineGaps(width, this.width);
-    new Path(x,y).h(gaps[0]).addTo(this);
+    new Path(x,y).h(gaps[0] + this.extra).addTo(this);
     new Path(x+gaps[0]+this.width,y+this.height).h(gaps[1]).addTo(this);
     x += gaps[0];
 
+    const baseline = y - Math.max(this.min.down, this.dots.down, this.max.down) - 5;
+    this.min.format(x, baseline, this.min.width).addTo(this);
+    x += this.min.width;
+    this.dots.format(x, baseline, this.dots.width).addTo(this);
+    x += this.dots.width;
+    this.max.format(x, baseline, this.max.width).addTo(this);
+    x += this.max.width;
+    if (this.extra) {
+      x += 5;
+    }
     // Draw repeat arc
     const distanceFromY = Math.max(Options.AR*2, this.item.height+this.item.down+Options.VS+this.rep.up);
     new Path(x+Options.AR,y).arc('nw').down(distanceFromY-Options.AR*2).arc('ws').addTo(this);
@@ -1078,24 +1110,9 @@ export class OneOrMore extends FakeSVG {
     // Draw item
     let dx = x + this.width - this.extra;
     new Path(x,y).right(Options.AR).addTo(this);
-    new Path(dx-Options.AR,y+this.height).right(Options.AR + this.extra).addTo(this);
+    new Path(dx-Options.AR,y+this.height).right(Options.AR).addTo(this);
     this.item.format(x+Options.AR,y,this.width-this.extra-Options.AR*2).addTo(this);
 
-    let dy2 = distanceFromY / 2;
-
-    // If any of these are tall enough to hit the line above, scrooch
-    // them down.  See "this.down" calc in constructor.
-    const maxUp = Math.max(this.min.up, this.dots.up, this.max.up)
-    if (dy2 < maxUp) {
-      dy2 = maxUp + 5;
-    }
-    dy2 += y;
-    dx += 5;
-    this.min.format(dx, dy2, this.min.width).addTo(this);
-    dx += this.min.width;
-    this.dots.format(dx, dy2, this.dots.width).addTo(this);
-    dx += this.dots.width;
-    this.max.format(dx, dy2, this.max.width).addTo(this);
     return this;
   }
   walk(cb) {
@@ -1114,17 +1131,16 @@ export class ZeroOrMore extends FakeSVG {
 }
 funcs.ZeroOrMore = (...args)=>new ZeroOrMore(...args);
 
-
 export class Group extends FakeSVG {
-  constructor(item, label) {
-    super('g', {class: 'Group'});
+  constructor(item, {label=undefined, cls=undefined} = {}) {
+    super('g', classes('Group', cls));
     this.item = wrapString(item);
     this.label =
       label instanceof FakeSVG
         ? label
-      : label
-        ? new Comment(label)
-        : undefined;
+        : label
+          ? new Comment(label)
+          : undefined;
 
     this.width = Math.max(
       this.item.width + (this.item.needsSpace?20:0),
@@ -1233,9 +1249,9 @@ export class End extends FakeSVG {
   }
   format(x,y) {
     if (this.type === "complex") {
-      this.attrs.d = 'M '+x+' '+y+' h 20 m 0 -10 v 20';
+      this.attrs.d = `M ${x} ${y} h 20 m 0 -10 v 20`;
     } else {
-      this.attrs.d = 'M '+x+' '+y+' h 20 m -10 -10 v 20 m 10 -20 v 20';
+      this.attrs.d = `M ${x} ${y} h 20 m -10 -10 v 20 m 10 -20 v 20`;
     }
     return this;
   }

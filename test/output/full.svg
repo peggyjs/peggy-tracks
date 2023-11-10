@@ -4,7 +4,7 @@
 <path d="M20 134v20m10 -20v20m-10 -10h20"></path>
 </g>
 <path d="M40 144h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M50 144h0"></path>
 <path d="M2245.5 144h0"></path>
 <rect x="50" y="36" width="2195.5" height="675" rx="10" ry="10" class="group-box"></rect>
@@ -27,7 +27,7 @@
 <path d="M2215.5 703a10 10 0 0 0 10 -10v-539a10 10 0 0 0 -10 -10"></path>
 <path d="M70 144h10"></path>
 <path d="M2215.5 144h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M80 144h0"></path>
 <path d="M2215.5 144h0"></path>
 <rect x="80" y="68" width="2135.5" height="627" rx="10" ry="10" class="group-box"></rect>
@@ -39,7 +39,7 @@
 <path d="M100 144h851.25"></path>
 <path d="M1344.25 144h851.25"></path>
 <path d="M1270.25 144h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M951.25 144h0"></path>
 <path d="M1270.25 144h0"></path>
 <rect x="951.25" y="92" width="319" height="88" rx="10" ry="10" class="group-box"></rect>
@@ -47,7 +47,7 @@
 <path d="M951.25 144h10"></path>
 <path d="M1260.25 144h10"></path>
 <path d="M1083.75 144h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M961.25 144h0"></path>
 <path d="M1083.75 144h0"></path>
 <rect x="961.25" y="116" width="122.5" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -132,7 +132,7 @@
 <path d="M100 256h688.75"></path>
 <path d="M1506.75 256h688.75"></path>
 <path d="M1432.75 256h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M788.75 256h0"></path>
 <path d="M1432.75 256h0"></path>
 <rect x="788.75" y="204" width="644" height="88" rx="10" ry="10" class="group-box"></rect>
@@ -140,7 +140,7 @@
 <path d="M788.75 256h10"></path>
 <path d="M1422.75 256h10"></path>
 <path d="M921.25 256h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M798.75 256h0"></path>
 <path d="M921.25 256h0"></path>
 <rect x="798.75" y="228" width="122.5" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -247,7 +247,7 @@
 <text x="1253.25" y="260">"*/"</text>
 </g>
 <path d="M1290.25 256h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M1300.25 256h0"></path>
 <path d="M1422.75 256h0"></path>
 <rect x="1300.25" y="228" width="122.5" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -314,7 +314,7 @@
 </g>
 <path d="M764 300a10 10 0 0 1 10 10v56a10 10 0 0 0 10 10"></path>
 <path d="M100 376h20"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M120 376h0"></path>
 <path d="M764 376h0"></path>
 <rect x="120" y="324" width="644" height="88" rx="10" ry="10" class="group-box"></rect>
@@ -322,7 +322,7 @@
 <path d="M120 376h10"></path>
 <path d="M754 376h10"></path>
 <path d="M252.5 376h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M130 376h0"></path>
 <path d="M252.5 376h0"></path>
 <rect x="130" y="348" width="122.5" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -429,7 +429,7 @@
 <text x="584.5" y="380">"*/"</text>
 </g>
 <path d="M621.5 376h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M631.5 376h0"></path>
 <path d="M754 376h0"></path>
 <rect x="631.5" y="348" width="122.5" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -478,7 +478,7 @@
 </g>
 <path d="M784 376h10"></path>
 <path d="M1397.5 376h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M794 376h0"></path>
 <path d="M1397.5 376h0"></path>
 <rect x="794" y="333" width="603.5" height="354" rx="10" ry="10" class="group-box"></rect>
@@ -490,7 +490,7 @@
 <path d="M814 376h59.75"></path>
 <path d="M1317.75 376h59.75"></path>
 <path d="M1226.75 376h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M873.75 376h0"></path>
 <path d="M1226.75 376h0"></path>
 <rect x="873.75" y="357" width="353" height="86" rx="10" ry="10" class="group-box"></rect>
@@ -609,7 +609,7 @@
 </g>
 <path d="M1377.5 376h20"></path>
 <path d="M794 376a10 10 0 0 1 10 10v123a10 10 0 0 0 10 10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M814 519h0"></path>
 <path d="M1377.5 519h0"></path>
 <rect x="814" y="467" width="563.5" height="88" rx="10" ry="10" class="group-box"></rect>
@@ -617,7 +617,7 @@
 <path d="M814 519h10"></path>
 <path d="M1367.5 519h10"></path>
 <path d="M1014.5 519h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M824 519h0"></path>
 <path d="M1014.5 519h0"></path>
 <rect x="824" y="500" width="190.5" height="38" rx="10" ry="10" class="group-box"></rect>
@@ -648,7 +648,7 @@
 </g>
 <path d="M1024.5 519h10"></path>
 <path d="M1157 519h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M1034.5 519h0"></path>
 <path d="M1157 519h0"></path>
 <rect x="1034.5" y="491" width="122.5" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -687,7 +687,7 @@
 </g>
 </g>
 <path d="M1167 519h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M1177 519h0"></path>
 <path d="M1367.5 519h0"></path>
 <rect x="1177" y="500" width="190.5" height="38" rx="10" ry="10" class="group-box"></rect>
@@ -725,7 +725,7 @@
 </g>
 <path d="M1377.5 519a10 10 0 0 0 10 -10v-123a10 10 0 0 1 10 -10"></path>
 <path d="M794 376a10 10 0 0 1 10 10v202a10 10 0 0 0 10 10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M814 598h186.5"></path>
 <path d="M1191 598h186.5"></path>
 <rect x="1000.5" y="579" width="190.5" height="38" rx="10" ry="10" class="group-box"></rect>
@@ -756,7 +756,7 @@
 </g>
 <path d="M1377.5 598a10 10 0 0 0 10 -10v-202a10 10 0 0 1 10 -10"></path>
 <path d="M794 376a10 10 0 0 1 10 10v264a10 10 0 0 0 10 10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M814 660h186.5"></path>
 <path d="M1191 660h186.5"></path>
 <rect x="1000.5" y="641" width="190.5" height="38" rx="10" ry="10" class="group-box"></rect>
@@ -806,7 +806,7 @@
 <path d="M1427.5 376h0"></path>
 <path d="M2111.5 376h0"></path>
 <path d="M1427.5 376h20"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M1447.5 376h0"></path>
 <path d="M2091.5 376h0"></path>
 <rect x="1447.5" y="324" width="644" height="88" rx="10" ry="10" class="group-box"></rect>
@@ -814,7 +814,7 @@
 <path d="M1447.5 376h10"></path>
 <path d="M2081.5 376h10"></path>
 <path d="M1580 376h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M1457.5 376h0"></path>
 <path d="M1580 376h0"></path>
 <rect x="1457.5" y="348" width="122.5" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -921,7 +921,7 @@
 <text x="1912" y="380">"*/"</text>
 </g>
 <path d="M1949 376h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M1959 376h0"></path>
 <path d="M2081.5 376h0"></path>
 <rect x="1959" y="348" width="122.5" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -968,7 +968,7 @@
 </g>
 <path d="M2091.5 376h20"></path>
 <path d="M1427.5 376a10 10 0 0 1 10 10v92a10 10 0 0 0 10 10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M1447.5 488h162.5"></path>
 <path d="M1929 488h162.5"></path>
 <rect x="1610" y="436" width="319" height="88" rx="10" ry="10" class="group-box"></rect>
@@ -976,7 +976,7 @@
 <path d="M1610 488h10"></path>
 <path d="M1919 488h10"></path>
 <path d="M1742.5 488h10"></path>
-<g class="Group">
+<g class="Group rule">
 <path d="M1620 488h0"></path>
 <path d="M1742.5 488h0"></path>
 <rect x="1620" y="460" width="122.5" height="56" rx="10" ry="10" class="group-box"></rect>
@@ -1129,5 +1129,22 @@
   }
   g.diagram-text:hover path.diagram-text {
     fill: #eee;
-  }</style>
+  }
+  text.repeat-text {
+    font: italic 12px monospace;
+    text-anchor: end;
+  }
+  .repeat-box > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+  .delimiter > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+</style>
 </svg>
