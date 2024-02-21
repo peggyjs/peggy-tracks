@@ -30,9 +30,6 @@
     "commander": "^12.0.0",
     "peggy": "^4.0.0"
   },
-  "engines": {
-    "node": ">=18"
-  },
   "devDependencies": {
     "@peggyjs/eslint-config": "^3.2.2",
     "@types/node": "^20.11.19",
@@ -43,5 +40,9 @@
     "chokidar-cli": "^3.0.0",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3"
+  },
+  "packageManager": "pnpm@8.15.3",
+  "engines": {
+    "node": ">=18"
   }
 }
