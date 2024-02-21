@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
-      - run: npm install
+      - run: pnpm install
       - run: npm run coverage
       - run: npm run lint
       - name: Upload coverage to Codecov
