@@ -23,12 +23,16 @@ jobs:
       NODE: ${{ matrix.node-version }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install pnpm
+        run: corepack enable
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
+          cache: pnpm
+      - run: pnpm install
       - run: npm run coverage
+      - run: npm run lint
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:

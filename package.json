@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "type": "module",
   "scripts": {
-    "lint": "eslint . --ext js",
+    "lint": "eslint .",
     "test": "ava",
     "coverage": "c8 ava",
     "dev:watch": "chokidar --initial --ignore \"coverage/**\" --ignore \"node_modules/**\" -c \"npm run coverage\" \"**/*.js\" \"**/*.json\" \"**/*.css\"",
@@ -27,21 +27,22 @@
   "repository": "peggyjs/peggy-tracks",
   "bugs": "https://github.com/peggyjs/peggy-tracks/issues",
   "dependencies": {
-    "commander": "^11.1.0",
-    "peggy": "^3.0.2"
-  },
-  "engines": {
-    "node": ">=16"
+    "commander": "^12.0.0",
+    "peggy": "^4.0.0"
   },
   "devDependencies": {
-    "@peggyjs/eslint-config": "^3.0.6",
-    "@types/node": "^20.9.0",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "ava": "^5.3.1",
-    "c8": "^8.0.1",
+    "@peggyjs/eslint-config": "^3.2.2",
+    "@types/node": "^20.11.19",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "ava": "^6.1.1",
+    "c8": "^9.1.0",
     "chokidar-cli": "^3.0.0",
-    "eslint": "^8.53.0",
-    "typescript": "^5.2.2"
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "pnpm@8.15.3",
+  "engines": {
+    "node": ">=18"
   }
 }

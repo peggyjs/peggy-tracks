@@ -113,7 +113,7 @@ test("grammar error", async t => {
     errorStream,
   });
   t.is(errorStream.read(), `\
-Error: Expected "!", "$", "&", "(", ".", "@", character class, comment, end of line, identifier, literal, or whitespace but "=" found.
+Error: Expected "(", ".", "@", [!$&], [!&], character class, comment, end of line, identifier, literal, or whitespace but "=" found.
  --> -:1:6
   |
 1 | foo ==
