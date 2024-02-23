@@ -131,7 +131,7 @@
 <g class="comment">
 <path d="M50 28h0"></path>
 <path d="M333 28h0"></path>
-<text x="191.5" y="33" class="comment">number(number without trailing comment)</text>
+<text x="191.5" y="33" class="comment">Number(number without trailing comment)</text>
 </g>
 </g>
 <path d="M423 79h10"></path>
