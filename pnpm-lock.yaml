@@ -9,7 +9,7 @@ dependencies:
     specifier: ^12.0.0
     version: 12.0.0
   peggy:
-    specifier: ^4.0.0
+    specifier: ^4.0.1
     version: 4.0.1
 
 devDependencies:
@@ -38,7 +38,7 @@ devDependencies:
     specifier: ^3.0.0
     version: 3.0.0
   eslint:
-    specifier: ^8.56.0
+    specifier: ^8.57.0
     version: 8.57.0
   typescript:
     specifier: ^5.3.3
