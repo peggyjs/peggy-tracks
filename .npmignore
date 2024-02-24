@@ -11,3 +11,5 @@ node_modules/
 test/
 tsconfig.json
 vendor/*/rationale.md
+eslint.config.js
+.ncurc

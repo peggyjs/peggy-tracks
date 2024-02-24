@@ -84,7 +84,7 @@ test("file output", async t => {
   // Didn't exist when we started
   await t.throwsAsync(() => stat(outfile));
   let inp = url.fileURLToPath(new URL("test.peggy", import.meta.url));
-  await exec(t, ["-s", "comment", inp]);
+  await exec(t, ["-s", "Comment", inp]);
   let outtext = await readFile(outfile, "utf8");
   t.regex(outtext, /^<svg/);
   await rm(outfile);
@@ -92,15 +92,27 @@ test("file output", async t => {
 
   const outd = url.fileURLToPath(new URL("output", import.meta.url));
   outfile = path.join(outd, "comment.svg");
-  await exec(t, ["-o", outd, "-s", "comment", "-e", inp]);
+  await exec(t, ["-o", outd, "-s", "Comment", "-e", inp]);
   outtext = await readFile(outfile, "utf8");
   t.snapshot(outtext);
-  await exec(t, ["-o", outfile, "-s", "comment", inp]);
+  await exec(t, ["-o", outfile, "-s", "Comment", inp]);
   const outtext2 = await readFile(outfile, "utf8");
   t.is(outtext, outtext2);
 
   inp = url.fileURLToPath(new URL("repeat.peggy", import.meta.url));
   outfile = path.join(outd, "repeat.svg");
+  await exec(t, ["-o", outd, inp]);
+  outtext = await readFile(outfile, "utf8");
+  t.snapshot(outtext);
+
+  inp = url.fileURLToPath(new URL("numbers.peggy", import.meta.url));
+  outfile = path.join(outd, "numbers.svg");
+  await exec(t, ["-o", outd, inp]);
+  outtext = await readFile(outfile, "utf8");
+  t.snapshot(outtext);
+
+  inp = url.fileURLToPath(new URL("numbers2.peggy", import.meta.url));
+  outfile = path.join(outd, "numbers2.svg");
   await exec(t, ["-o", outd, inp]);
   outtext = await readFile(outfile, "utf8");
   t.snapshot(outtext);
@@ -159,7 +171,7 @@ test("more examples", async t => {
   const actionURL = new URL("output/action.svg", import.meta.url);
   const action = url.fileURLToPath(actionURL);
   const css = url.fileURLToPath(new URL("pretty.css", import.meta.url));
-  await exec(t, ["--action", "--output", action, "--css", css, "-s", "number", inp]);
+  await exec(t, ["--action", "--output", action, "--css", css, "-s", "Number", inp]);
   t.snapshot(await readFile(actionURL, "utf8"));
 
   const fullURL = url.fileURLToPath(new URL("output/full.svg", import.meta.url));

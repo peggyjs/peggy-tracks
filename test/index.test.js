@@ -20,7 +20,7 @@ test("produces one of each", async t => {
   const diag = tracks({
     text,
     expand: true,
-    start: "top",
+    start: "Top",
   });
   t.truthy(diag);
 });
