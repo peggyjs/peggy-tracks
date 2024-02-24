@@ -1,0 +1,138 @@
+<svg class="railroad-diagram" width="263.5" height="174" viewBox="0 0 263.5 174" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g transform="translate(.5 .5)">
+<g class="Start">
+<path d="M20 87v20m10 -20v20m-10 -10h20"></path>
+</g>
+<path d="M40 97h10"></path>
+<g class="Group rule">
+<path d="M50 97h0"></path>
+<path d="M213.5 97h0"></path>
+<rect x="50" y="36" width="163.5" height="118" rx="10" ry="10" class="group-box"></rect>
+<g class="Choice">
+<path d="M50 97h0"></path>
+<path d="M213.5 97h0"></path>
+<path d="M50 97a10 10 0 0 0 10 -10v-33a10 10 0 0 1 10 -10"></path>
+<g class="Skip">
+<path d="M70 44h123.5"></path>
+</g>
+<path d="M193.5 44a10 10 0 0 1 10 10v33a10 10 0 0 0 10 10"></path>
+<path d="M50 97h20"></path>
+<g class="Group repeat-box">
+<path d="M70 97h0"></path>
+<path d="M193.5 97h0"></path>
+<rect x="70" y="68" width="123.5" height="78" rx="10" ry="10" class="group-box"></rect>
+<g class="OneOrMore">
+<path d="M70 97h53"></path>
+<path d="M183.5 97h10"></path>
+<g class="comment">
+<text x="83.5" y="89" class="comment">0</text>
+</g>
+<g class="comment range">
+<text x="99" y="89" class="comment">..</text>
+</g>
+<g class="comment">
+<text x="114.5" y="89" class="comment">∞</text>
+</g>
+<path d="M133 97a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path>
+<g class="terminal literal">
+<path d="M133 127h-2.5"></path>
+<path d="M176 127h-2.5"></path>
+<rect x="130.5" y="116" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="153.25" y="131">","</text>
+</g>
+<path d="M173.5 127a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path>
+<path d="M123 97h10"></path>
+<path d="M173.5 97h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M133 97h-2.5"></path>
+<path d="M176 97h-2.5"></path>
+<rect x="130.5" y="86" width="45.5" height="22"></rect>
+<text x="153.25" y="101">Num</text>
+</g>
+</g>
+<g class="comment">
+<path d="M70 60h0"></path>
+<path d="M122 60h0"></path>
+<text x="96" y="65" class="comment">repeat</text>
+</g>
+</g>
+<path d="M193.5 97h20"></path>
+</g>
+<g class="comment">
+<path d="M50 28h0"></path>
+<path d="M109 28h0"></path>
+<text x="79.5" y="33" class="comment">Numbers</text>
+</g>
+</g>
+<path d="M213.5 97h10"></path>
+<path class="End" d="M 223.5 97 h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
+</g>
+<style>
+  svg {
+    background-color: hsl(30,20%,95%);
+  }
+  path {
+    stroke-width: 3;
+    stroke: black;
+    fill: rgba(0,0,0,0);
+  }
+  text {
+    font: bold 14px monospace;
+    text-anchor: middle;
+    white-space: pre;
+  }
+  text.diagram-text {
+    font-size: 12px;
+  }
+  text.diagram-arrow {
+    font-size: 16px;
+  }
+  text.label {
+    text-anchor: start;
+  }
+  text.comment {
+    font: italic 12px monospace;
+  }
+  g.non-terminal text {
+    /*font-style: italic;*/
+  }
+  rect {
+    stroke-width: 3;
+    stroke: black;
+    fill: hsl(120,100%,90%);
+  }
+  rect.group-box {
+    stroke: gray;
+    stroke-dasharray: 10 5;
+    fill: none;
+  }
+  path.diagram-text {
+    stroke-width: 3;
+    stroke: black;
+    fill: white;
+    cursor: help;
+  }
+  .decision path {
+    fill: #ccc;
+  }
+  g.diagram-text:hover path.diagram-text {
+    fill: #eee;
+  }
+  text.repeat-text {
+    font: italic 12px monospace;
+    text-anchor: end;
+  }
+  .repeat-box > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+  .delimiter > rect.group-box {
+    stroke: gray;
+    stroke-width: 2;
+    stroke-dasharray: 1 5;
+    fill: none;
+  }
+</style>
+</svg>

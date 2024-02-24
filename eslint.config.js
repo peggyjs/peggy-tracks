@@ -10,6 +10,7 @@ export default [
       "node_modules/**",
       "vendor/**",
       "test/repeat.peggy",
+      "test/number.js",
     ],
   },
   {

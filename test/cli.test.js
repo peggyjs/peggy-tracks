@@ -104,6 +104,18 @@ test("file output", async t => {
   await exec(t, ["-o", outd, inp]);
   outtext = await readFile(outfile, "utf8");
   t.snapshot(outtext);
+
+  inp = url.fileURLToPath(new URL("numbers.peggy", import.meta.url));
+  outfile = path.join(outd, "numbers.svg");
+  await exec(t, ["-o", outd, inp]);
+  outtext = await readFile(outfile, "utf8");
+  t.snapshot(outtext);
+
+  inp = url.fileURLToPath(new URL("numbers2.peggy", import.meta.url));
+  outfile = path.join(outd, "numbers2.svg");
+  await exec(t, ["-o", outd, inp]);
+  outtext = await readFile(outfile, "utf8");
+  t.snapshot(outtext);
 });
 
 test("grammar error", async t => {
