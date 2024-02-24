@@ -31,8 +31,8 @@
     "peggy": "^4.0.1"
   },
   "devDependencies": {
-    "@peggyjs/eslint-config": "^3.2.2",
-    "@peggyjs/eslint-plugin": "2.0.0",
+    "@peggyjs/eslint-config": "^3.2.3",
+    "@peggyjs/eslint-plugin": "2.0.1",
     "@types/node": "^20.11.20",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
