@@ -14,11 +14,11 @@ dependencies:
 
 devDependencies:
   '@peggyjs/eslint-config':
-    specifier: ^3.2.2
-    version: 3.2.2(@typescript-eslint/eslint-plugin@7.0.2)(@typescript-eslint/parser@7.0.2)(eslint@8.57.0)(typescript@5.3.3)
+    specifier: ^3.2.3
+    version: 3.2.3(@typescript-eslint/eslint-plugin@7.0.2)(@typescript-eslint/parser@7.0.2)(eslint@8.57.0)(typescript@5.3.3)
   '@peggyjs/eslint-plugin':
-    specifier: 2.0.0
-    version: 2.0.0(@peggyjs/eslint-parser@2.0.4)(eslint@8.57.0)
+    specifier: 2.0.1
+    version: 2.0.1(@peggyjs/eslint-parser@2.0.5)(eslint@8.57.0)
   '@types/node':
     specifier: ^20.11.20
     version: 20.11.20
@@ -172,8 +172,8 @@ packages:
       fastq: 1.17.1
     dev: true
 
-  /@peggyjs/eslint-config@3.2.2(@typescript-eslint/eslint-plugin@7.0.2)(@typescript-eslint/parser@7.0.2)(eslint@8.57.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-Yq/gJqRmBijpTj90aLkO4oUNIKc3Vt6V/PB9ck8fntUgWSVWsz4F4c0z8rR+c7Ivq+r1ivtmzoY9qpCnRDLVcw==}
+  /@peggyjs/eslint-config@3.2.3(@typescript-eslint/eslint-plugin@7.0.2)(@typescript-eslint/parser@7.0.2)(eslint@8.57.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-NlYOPUHuR9lSmd8OimdrH+buCrtVILfsEun63ZmJqokpiVBE+Cpb2z9joIsS1LHGCZWsYQdr79xFbOstq0U/ew==}
     engines: {node: '>=18'}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ~7
@@ -201,20 +201,20 @@ packages:
       - supports-color
     dev: true
 
-  /@peggyjs/eslint-parser@2.0.4:
-    resolution: {integrity: sha512-e3SaXEzbY/JcUxjcOG5OK7Z76XK8JJUyZkHQTheNtxu/9CwZvxDxPJneREh8IzYBv9M2hwVcOZbffKIz/wvKJQ==}
+  /@peggyjs/eslint-parser@2.0.5:
+    resolution: {integrity: sha512-oOXcTVBGMlBmiKDz4Tp4Q7mEShOyUm6tivxtlBb/T5rBTU/VoyGuFIYbXP7D9szzPA9hjeXVcffDLW1oRC7LDA==}
     engines: {node: '>=18'}
     dev: true
 
-  /@peggyjs/eslint-plugin@2.0.0(@peggyjs/eslint-parser@2.0.4)(eslint@8.57.0):
-    resolution: {integrity: sha512-Fb/l6kgkbClerqzpgQbfpe5bX1JOsH1MyQDSpGcNU7GT1CclIhWXozXE3OOKv0PJKhryxdBucCR8VbJ0HVGL5Q==}
+  /@peggyjs/eslint-plugin@2.0.1(@peggyjs/eslint-parser@2.0.5)(eslint@8.57.0):
+    resolution: {integrity: sha512-6xF4pRD443wI0WrtlfNXnISVc0BtY/4Bxw6wIA57DTFwqvu+UomdUKeKtYhkjpCQgg+UG9oyTNWZDTwINGcI/g==}
     engines: {node: '>=20.8'}
     peerDependencies:
-      '@peggyjs/eslint-parser': ^2.0.4
-      eslint: '>=8.56.0'
+      '@peggyjs/eslint-parser': ^2.0.5
+      eslint: '>=8.57.0'
     dependencies:
-      '@peggyjs/eslint-parser': 2.0.4
-      '@peggyjs/from-mem': 1.0.0
+      '@peggyjs/eslint-parser': 2.0.5
+      '@peggyjs/from-mem': 1.1.0
       enhanced-resolve: 5.15.0
       eslint: 8.57.0
     dev: true
@@ -224,6 +224,14 @@ packages:
     engines: {node: '>=20.8'}
     dependencies:
       semver: 7.6.0
+    dev: false
+
+  /@peggyjs/from-mem@1.1.0:
+    resolution: {integrity: sha512-dnemsLNAWaf1eS2E6eh86QRTmco8ROTAIy/MTUG/0OZ6UPAnCzDbF7V0EYtiXwxMATubAXp3YTSvsnanQDgjzA==}
+    engines: {node: '>=20.8'}
+    dependencies:
+      semver: 7.6.0
+    dev: true
 
   /@rollup/pluginutils@4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
