@@ -177,3 +177,18 @@ test("depth", async t => {
     t.snapshot(await readFile(fullURL, "utf8"));
   }
 });
+
+test("invalid options", async t => {
+  const errorStream = new Buf();
+
+  await exec(t, ["-d"], "commander.optionMissingArgument", {
+    errorStream,
+  });
+  await exec(t, ["-d", "foo"], "commander.error", {
+    errorStream,
+  });
+  await exec(t, ["-d", "-1"], "commander.error", {
+    errorStream,
+  });
+  t.snapshot(errorStream.read());
+});
