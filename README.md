@@ -27,6 +27,8 @@ Options:
   -a,--action              Wrap actions in a box
   -c,--css [file name]     With no file name, outputs the default CSS.  With a
                            filename, substitutes the CSS in that file.
+  -d,--depth <number>      Maximum depth to expand references (set to Infinity
+                           with --expand).
   -e,--expand              Expand rule references
   -o,--output <file name>  File in which to save output
   -s,--start <rule name>   Rule to start with
@@ -35,7 +37,8 @@ Options:
 
 ## More control
 
-To change the look and feel of the output, you can output the default CSS that will be placed in the SVG:
+To change the look and feel of the output, you can output the default CSS that
+will be placed in the SVG:
 
 ```sh
 peggy-tracks -c > my.css
@@ -51,7 +54,9 @@ Generates this:
 
 ![comments-expanded](./test/output/action.svg)
 
-Note that the `--action` flag has created extra boxes around parts of the grammar, that when moused over show the code that will be executed when the fragment matches.
+Note that the `--action` flag has created extra boxes around parts of the
+grammar, that when moused over show the code that will be executed when the
+fragment matches.
 
 ## API
 
