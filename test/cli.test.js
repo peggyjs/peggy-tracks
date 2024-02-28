@@ -50,18 +50,7 @@ test("cli help", async t => {
     defaultOutputStream,
   });
 
-  t.is(defaultOutputStream.read(), `\
-Usage: peggy-tracks [options] [input_file]
-
-Options:
-  -a,--action              Wrap actions in a box
-  -c,--css [file name]     With no file name, outputs the default CSS.  With a
-                           filename, substitutes the CSS in that file.
-  -e,--expand              Expand rule references
-  -o,--output <file name>  File in which to save output
-  -s,--start <rule name>   Rule to start with
-  -h, --help               display help for command
-`);
+  t.snapshot(defaultOutputStream.read());
 
   const errorStream = new Buf();
   await exec(t, ["-s"], "commander.optionMissingArgument", {
@@ -177,4 +166,29 @@ test("more examples", async t => {
   const fullURL = url.fileURLToPath(new URL("output/full.svg", import.meta.url));
   await exec(t, ["-e", "-o", fullURL, inp]);
   t.snapshot(await readFile(fullURL, "utf8"));
+});
+
+test("depth", async t => {
+  const inp = url.fileURLToPath(new URL("test.peggy", import.meta.url));
+
+  for (let i = 0; i < 5; i++) {
+    const fullURL = url.fileURLToPath(new URL(`output/depth${i}.svg`, import.meta.url));
+    await exec(t, ["-d", String(i), "-o", fullURL, inp]);
+    t.snapshot(await readFile(fullURL, "utf8"));
+  }
+});
+
+test("invalid options", async t => {
+  const errorStream = new Buf();
+
+  await exec(t, ["-d"], "commander.optionMissingArgument", {
+    errorStream,
+  });
+  await exec(t, ["-d", "foo"], "commander.error", {
+    errorStream,
+  });
+  await exec(t, ["-d", "-1"], "commander.error", {
+    errorStream,
+  });
+  t.snapshot(errorStream.read());
 });

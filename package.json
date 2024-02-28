@@ -9,7 +9,7 @@
     "test": "ava",
     "coverage": "c8 ava",
     "dev:watch": "chokidar --initial --ignore \"coverage/**\" --ignore \"node_modules/**\" -c \"npm run coverage\" \"**/*.js\" \"**/*.json\" \"**/*.css\"",
-    "types": "tsc"
+    "build": "tsc"
   },
   "bin": {
     "peggy-tracks": "bin/peggy-tracks.js"
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@peggyjs/eslint-config": "^3.2.4",
     "@peggyjs/eslint-plugin": "2.0.2",
-    "@types/node": "^20.11.20",
+    "@types/node": "^20.11.21",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "ava": "^6.1.1",
