@@ -3,8 +3,7 @@ export function wrapCount(m: any, defaultValue?: string): Decision | Comment | N
  * Generate a railroad track diagram from a grammer
  *
  * @param {TrackOptions} opts
- * @return {Diagram|ComplexDiagram
- }
+ * @return {Diagram|ComplexDiagram}
  */
 export function tracks(opts: TrackOptions): Diagram | ComplexDiagram;
 export { defaultCSS };
@@ -25,10 +24,6 @@ export type TrackOptions = {
      * Create action blocks.
      */
     action?: boolean;
-    /**
-     * Expand rule references.
-     */
-    expand?: boolean;
     /**
      * Peggy parser options.  Most important
      * is "grammarSource".
