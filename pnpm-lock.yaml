@@ -17,11 +17,11 @@ devDependencies:
     specifier: ^3.2.4
     version: 3.2.4(@typescript-eslint/eslint-plugin@7.1.0)(@typescript-eslint/parser@7.1.0)(eslint@8.57.0)(typescript@5.3.3)
   '@peggyjs/eslint-plugin':
-    specifier: 2.0.2
-    version: 2.0.2(@peggyjs/eslint-parser@2.0.6)(eslint@8.57.0)
+    specifier: 2.1.0
+    version: 2.1.0(@peggyjs/eslint-parser@2.0.6)(eslint@8.57.0)
   '@types/node':
-    specifier: ^20.11.21
-    version: 20.11.21
+    specifier: ^20.11.24
+    version: 20.11.24
   '@typescript-eslint/eslint-plugin':
     specifier: ^7.1.0
     version: 7.1.0(@typescript-eslint/parser@7.1.0)(eslint@8.57.0)(typescript@5.3.3)
@@ -29,8 +29,8 @@ devDependencies:
     specifier: ^7.1.0
     version: 7.1.0(eslint@8.57.0)(typescript@5.3.3)
   ava:
-    specifier: ^6.1.1
-    version: 6.1.1
+    specifier: ^6.1.2
+    version: 6.1.2
   c8:
     specifier: ^9.1.0
     version: 9.1.0
@@ -206,16 +206,15 @@ packages:
     engines: {node: '>=18'}
     dev: true
 
-  /@peggyjs/eslint-plugin@2.0.2(@peggyjs/eslint-parser@2.0.6)(eslint@8.57.0):
-    resolution: {integrity: sha512-UsgfNY5JUe4bDE6yonabrOS9PFD8aSbITNKw5YOpvWUidE+Cq6MaA3NmKbWzx9L6pPy7415Wz8MndEBMLCsx2Q==}
+  /@peggyjs/eslint-plugin@2.1.0(@peggyjs/eslint-parser@2.0.6)(eslint@8.57.0):
+    resolution: {integrity: sha512-wJ4VV5jgTZJBq1aLGiqqeFAOLHq9I0VUwXqMf5ecO0VVis2IWZBqv0xvQh9hByzo/lXvWL0FAPownncGmN59XQ==}
     engines: {node: '>=20.8'}
     peerDependencies:
       '@peggyjs/eslint-parser': ^2.0.6
       eslint: '>=8.57.0'
     dependencies:
       '@peggyjs/eslint-parser': 2.0.6
-      '@peggyjs/from-mem': 1.2.1
-      enhanced-resolve: 5.15.0
+      enhanced-resolve: 5.15.1
       eslint: 8.57.0
     dev: true
 
@@ -224,6 +223,7 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       semver: 7.6.0
+    dev: false
 
   /@rollup/pluginutils@4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -329,8 +329,8 @@ packages:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: true
 
-  /@types/node@20.11.21:
-    resolution: {integrity: sha512-/ySDLGscFPNasfqStUuWWPfL78jompfIoVzLJPVVAHBh6rpG68+pI2Gk+fNLeI8/f1yPYL4s46EleVIc20F1Ow==}
+  /@types/node@20.11.24:
+    resolution: {integrity: sha512-Kza43ewS3xoLgCEpQrsT+xRo/EJej1y0kVYGiLFE1NEODXGzTfwiC6tXTLMQskn1X4/Rjlh0MQUvx9W+L9long==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -696,8 +696,8 @@ packages:
     resolution: {integrity: sha512-tLRNUXati5MFePdAk8dw7Qt7DpxPB60ofAgn8WRhW6a2rcimZnYBP9oxHiv0OHy+Wz7kPMG+t4LGdt31+4EmGg==}
     dev: true
 
-  /ava@6.1.1:
-    resolution: {integrity: sha512-A+DG0Ag0e5zvt262Ze0pG5QH7EBmhn+DB9uK7WkUtJVAtGjZFeKTpUOKx339DMGn53+FB24pCJC5klX2WU4VOw==}
+  /ava@6.1.2:
+    resolution: {integrity: sha512-WcpxJ8yZ7mk9ABTinD0IAjcemovSeVGjuuwZx0JS9johREWFeLTl8UP6wd7l6nmnrWqkKZdwaD71a/ocH4qPKw==}
     engines: {node: ^18.18 || ^20.8 || ^21}
     hasBin: true
     peerDependencies:
@@ -1069,8 +1069,8 @@ packages:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
     dev: true
 
-  /enhanced-resolve@5.15.0:
-    resolution: {integrity: sha512-LXYT42KJ7lpIKECr2mAXIaMldcNCh/7E0KBKOu4KSfkHmP+mZmSs+8V5gBAqisWBy0OO4W5Oyys0GO1Y8KtdKg==}
+  /enhanced-resolve@5.15.1:
+    resolution: {integrity: sha512-3d3JRbwsCLJsYgvb6NuWEG44jjPSOMuS73L/6+7BZuoKm3W+qXnSoIYVHi8dG7Qcg4inAY4jbzkZ7MnskePeDg==}
     engines: {node: '>=10.13.0'}
     dependencies:
       graceful-fs: 4.2.11
