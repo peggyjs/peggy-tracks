@@ -37,3 +37,9 @@ test("actions", t => {
 test("wrapCount", t => {
   t.is(wrapCount(null), null);
 });
+
+test("it handles single-value repeats", t => {
+  const diag = tracks({ text: "x = 'x'|2|" });
+  t.snapshot(diag.toStandalone());
+});
+
