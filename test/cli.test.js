@@ -171,10 +171,12 @@ test("more examples", async t => {
 test("depth", async t => {
   const inp = url.fileURLToPath(new URL("test.peggy", import.meta.url));
 
+  let q = "";
   for (let i = 0; i < 5; i++) {
     const fullURL = url.fileURLToPath(new URL(`output/depth${i}.svg`, import.meta.url));
-    await exec(t, ["-d", String(i), "-o", fullURL, inp]);
+    await exec(t, ["-q", q, "-d", String(i), "-o", fullURL, inp]);
     t.snapshot(await readFile(fullURL, "utf8"));
+    q += "Q";
   }
 });
 
