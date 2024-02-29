@@ -50,7 +50,7 @@
 <path d="M356.75 87h0"></path>
 <path d="M410.75 87h0"></path>
 <rect x="356.75" y="76" width="54" height="22" rx="10" ry="10"></rect>
-<text x="383.75" y="91">"\n"</text>
+<text x="383.75" y="91">Q\nQ</text>
 </g>
 </g>
 <path d="M542.5 87h20"></path>
@@ -70,7 +70,7 @@
 <path d="M344 117h0"></path>
 <path d="M398 117h0"></path>
 <rect x="344" y="106" width="54" height="22" rx="10" ry="10"></rect>
-<text x="371" y="121">"\n"</text>
+<text x="371" y="121">Q\nQ</text>
 </g>
 </g>
 <path d="M542.5 117a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
@@ -139,7 +139,7 @@
 <path d="M488.5 156h0"></path>
 <path d="M542.5 156h0"></path>
 <rect x="488.5" y="145" width="54" height="22" rx="10" ry="10"></rect>
-<text x="515.5" y="160">"\n"</text>
+<text x="515.5" y="160">Q\nQ</text>
 </g>
 </g>
 <path d="M542.5 156a10 10 0 0 0 10 -10v-49a10 10 0 0 1 10 -10"></path>
