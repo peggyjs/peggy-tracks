@@ -17,7 +17,7 @@ class Buf extends Transform {
     this.errorToThrow = errorToThrow;
   }
 
-  _transform(chunk, encoding, cb) {
+  _transform(chunk, _encoding, cb) {
     if (this.errorToThrow) {
       cb(this.errorToThrow);
     } else {
