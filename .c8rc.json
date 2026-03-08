@@ -1,5 +1,5 @@
 {
-  "reporter": ["lcov"],
+  "reporter": ["lcov", "text"],
   "include": ["lib"],
   "exclude": ["test"],
   "all": true

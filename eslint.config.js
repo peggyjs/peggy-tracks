@@ -1,7 +1,5 @@
-import cjs from "@peggyjs/eslint-config/flat/cjs.js";
-import modern from "@peggyjs/eslint-config/flat/modern.js";
-import module from "@peggyjs/eslint-config/flat/module.js";
-import peggy from "@peggyjs/eslint-plugin/lib/flat/recommended.js";
+import modern from "@peggyjs/eslint-config/modern.js";
+import module from "@peggyjs/eslint-config/module.js";
 
 export default [
   {
@@ -13,10 +11,6 @@ export default [
       "test/number.js",
     ],
   },
-  {
-    ...module,
-    ...modern,
-  },
-  cjs,
-  peggy,
+  ...module,
+  ...modern,
 ];

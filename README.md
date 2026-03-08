@@ -20,7 +20,7 @@ npm install -g peggy-tracks
 
 ## Command line
 
-```
+```txt
 Usage: peggy-tracks [options] [input_file]
 
 Options:
